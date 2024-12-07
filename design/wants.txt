@@ -1,0 +1,26 @@
+Main Page:
+1. List of all tasks
+2. Button to add task
+3. Button to edit task
+3b. Button to clone task
+3. Button to clear all tasks
+4. Reorder tasks
+5. Button to define existing state
+6. (v2) View that displays missing resources
+7. Task card that shows summary
+
+Task Page:
+1. Save & Cancel buttons
+2. Task name (optional)
+3. Require caretaker, servant, self
+4. Define requirements
+5. Define rewards
+6. Other notes
+7. Town/Estate
+
+Existing state Page:
+1. Initial resources
+2. Journal state
+3. Stored experiments
+4. (v2) Servants/Caretakers
+5. (v2) Has Master Bedroom?

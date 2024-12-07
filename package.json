@@ -1,0 +1,33 @@
+{
+  "name": "my-fathers-plan",
+  "version": "0.1.0",
+  "description": "Helper app for My Father's Work",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --mode=development",
+    "start:prod": "webpack serve --mode=production",
+    "build": "webpack --mode=production",
+    "build:dev": "webpack --mode=development"
+  },
+  "author": "Pete Ownby",
+  "license": "Unlicensed",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router": "^7.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^9.2.1",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "less": "^4.1.1",
+    "less-loader": "^12.2.0",
+    "mini-css-extract-plugin": "^2.9.2",
+    "webpack": "^5.37.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  }
+}
