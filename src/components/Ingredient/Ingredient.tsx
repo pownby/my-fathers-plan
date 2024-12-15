@@ -10,7 +10,12 @@ const TYPE = {
   BODY: Icon.TYPE.SKULL
 };
 
-export default function Ingredient({ type = TYPE.CHEMICAL, label }) {
+type IngredientProps = {
+  type: typeof TYPE[keyof typeof TYPE],
+  label?: string,
+};
+
+export default function Ingredient({ type = TYPE.CHEMICAL, label }: IngredientProps) {
   return (
     <Resource label={label}>
       <Icon type={type} />

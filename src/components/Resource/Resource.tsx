@@ -2,7 +2,12 @@ import React from 'react';
 
 import * as styles from './Resource.less';
 
-export default function Resource({ children, label }) {
+type ResourceProps = {
+  children?: React.ReactNode,
+  label?: string,
+};
+
+export default function Resource({ children, label }: ResourceProps) {
   return (
     <div className={styles.container}>
       {children}

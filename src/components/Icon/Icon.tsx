@@ -30,7 +30,13 @@ const TYPE = {
   */
 };
 
-export default function Icon({ type, color, onClick }) {
+type IconProps = {
+  type: typeof TYPE[keyof typeof TYPE],
+  color?: string,
+  onClick?: () => void
+}
+
+export default function Icon({ type, color, onClick }: IconProps) {
   const style = color && { color };
   const className = cx('fas', `fa-${type}`, { [styles.clickable]: !!onClick });
   return <i className={className} style={style} onClick={onClick}></i>;

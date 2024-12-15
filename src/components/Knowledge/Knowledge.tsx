@@ -10,7 +10,12 @@ const TYPE = {
   ARCANE: styles.grey,
 };
 
-export default function Knowledge({ type = TYPE.CHEMISTY, label }) {
+type KnowledgeProps = {
+  type: typeof TYPE[keyof typeof TYPE],
+  label?: string,
+};
+
+export default function Knowledge({ type = TYPE.CHEMISTY, label }: KnowledgeProps) {
   return <Resource label={label}>
     <div className={`${styles.cube} ${type}`}></div>
   </Resource>;

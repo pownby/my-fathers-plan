@@ -6,7 +6,7 @@ module.exports = (env, argv) => {
   const devMode = argv.mode === 'development';
 
   return {
-    entry: path.resolve(__dirname, 'src/index.js'),
+    entry: path.resolve(__dirname, 'src/index.tsx'),
     output: {
       filename: 'bundle.js',
       path: path.resolve(__dirname, 'dist'),
@@ -15,6 +15,11 @@ module.exports = (env, argv) => {
     devtool: devMode && 'cheap-module-source-map',
     module: {
       rules: [
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
@@ -43,6 +48,9 @@ module.exports = (env, argv) => {
           type: 'asset'
         }
       ]
+    },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js', '.less'],
     },
     plugins: [
       new HtmlWebpackPlugin({ template: './public/index.html', publicPath: '/' }),
