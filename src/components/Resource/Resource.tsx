@@ -4,7 +4,7 @@ import * as styles from './Resource.less';
 
 type ResourceProps = {
   children?: React.ReactNode,
-  label?: string,
+  label?: string | number,
 };
 
 export default function Resource({ children, label }: ResourceProps) {

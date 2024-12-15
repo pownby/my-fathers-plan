@@ -3,7 +3,7 @@ import React from 'react';
 import Resource from '../Resource';
 import Icon from '../Icon';
 
-const TYPE = {
+const TYPE: { [key: string]: string } = {
   CHEMICAL: Icon.TYPE.ATOM,
   ANIMAL: Icon.TYPE.PAW,
   GEAR: Icon.TYPE.BOLT,
@@ -12,7 +12,7 @@ const TYPE = {
 
 type IngredientProps = {
   type: typeof TYPE[keyof typeof TYPE],
-  label?: string,
+  label?: string | number,
 };
 
 export default function Ingredient({ type = TYPE.CHEMICAL, label }: IngredientProps) {

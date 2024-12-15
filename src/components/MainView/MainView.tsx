@@ -1,9 +1,8 @@
 import React from 'react';
 
-import Knowledge from '../Knowledge';
-import Ingredient from '../Ingredient';
-import Resource from '../Resource';
 import Icon from '../Icon';
+import ResourceList from '../ResourceList';
+import appData from '../../testData';
 import * as styles from './MainView.less';
 
 function TestPalette() {
@@ -16,33 +15,18 @@ function TestPalette() {
 }
 
 export default function MainView() {
+  const { state = {} } = appData;
+
   return (
     <div>
       <div className={styles.stateHeader}>
         State: <Icon type={Icon.TYPE.EDIT} onClick={() => console.log('Click edit state')} />
       </div>
       <div className={styles.stateContainer}>
-        <div className={styles.stateSection}>
-          <div>Journal:</div>
-          <Knowledge type={Knowledge.TYPE.CHEMISTY} label="2" />
-          <Knowledge type={Knowledge.TYPE.ENGINEERING} label="1" />
-        </div>
-        <div className={styles.stateSection}>
-          <div>Resources:</div>
-          <Ingredient type={Ingredient.TYPE.CHEMICAL} label="2" />
-          <Ingredient type={Ingredient.TYPE.GEAR} label="2" />
-        </div>
-        <div className={styles.stateSection}>
-          <div>Knowledge:</div>
-          <Knowledge type={Knowledge.TYPE.CHEMISTY} label="3" />
-          <Knowledge type={Knowledge.TYPE.BIOLOGY} label="1" />
-          <Knowledge type={Knowledge.TYPE.ARCANE} label="1" />
-        </div>
-        <div className={styles.stateSection}>
-          <div>Experiments:</div>
-          <Resource label="1">B</Resource>
-          <Resource label="1">C</Resource>
-        </div>
+        <ResourceList label="Journal" set={state.journal} type={ResourceList.TYPE.KNOWLEDGE} />
+        <ResourceList label="Ingredients" set={state.ingredients} type={ResourceList.TYPE.INGREDIENT} />
+        <ResourceList label="Knowledge" set={state.knowledge} type={ResourceList.TYPE.KNOWLEDGE} />
+        <ResourceList label="Experiments" set={state.experiments} type={ResourceList.TYPE.EXPERIMENT} />
       </div>
       <TestPalette />
     </div>
