@@ -1,33 +1,29 @@
+import { TaskProvider, TaskLocation, ExperimentTier, KnowledgeType, IngredientType } from "./constants";
+
 export type KnowledgeSet = {
-  chem?: number,
-  bio?: number,
-  eng?: number,
-  arc?: number
+  [KnowledgeType.Chemistry]?: number,
+  [KnowledgeType.Biology]?: number,
+  [KnowledgeType.Engineering]?: number,
+  [KnowledgeType.Arcane]?: number
 };
 
 export type IngredientSet = {
-  chem?: number,
-  anim?: number,
-  gear?: number,
-  body?: number
+  [IngredientType.Chemical]?: number,
+  [IngredientType.Animal]?: number,
+  [IngredientType.Gear]?: number,
+  [IngredientType.Body]?: number
 };
 
 export type ExperimentSet = {
-  A?: number,
-  B?: number,
-  C?: number,
-  D?: number
+  [ExperimentTier.A]?: number,
+  [ExperimentTier.B]?: number,
+  [ExperimentTier.C]?: number,
+  [ExperimentTier.D]?: number
 };
-
-export type TaskProvider = 'caretaker' | 'servant' | 'self';
-
-export type TaskLocation = 'town' | 'estate';
-
-export type TaskTier = 'A' | 'B' | 'C' | 'D';
 
 export type Task = {
   name?: string,
-  tier?: TaskTier,
+  tier?: ExperimentTier,
   provider?: TaskProvider,
   location?: TaskLocation,
   notes?: string,

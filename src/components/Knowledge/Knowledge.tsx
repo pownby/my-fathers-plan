@@ -2,23 +2,22 @@ import React from 'react';
 
 import Resource from '../Resource';
 import * as styles from './Knowledge.less';
+import { KnowledgeType } from '../../constants';
 
-const TYPE: { [key: string]: string } = {
-  CHEMISTY: styles.blue,
-  BIOLOGY: styles.green,
-  ENGINEERING: styles.yellow,
-  ARCANE: styles.grey,
+const COLOR_MAP = {
+  [KnowledgeType.Chemistry]: styles.blue,
+  [KnowledgeType.Biology]: styles.green,
+  [KnowledgeType.Engineering]: styles.yellow,
+  [KnowledgeType.Arcane]: styles.grey,
 };
 
 type KnowledgeProps = {
-  type: typeof TYPE[keyof typeof TYPE],
+  type: KnowledgeType,
   label?: string | number,
 };
 
-export default function Knowledge({ type = TYPE.CHEMISTY, label }: KnowledgeProps) {
+export default function Knowledge({ type = KnowledgeType.Chemistry, label }: KnowledgeProps) {
   return <Resource label={label}>
-    <div className={`${styles.cube} ${type}`}></div>
+    <div className={`${styles.cube} ${COLOR_MAP[type]}`}></div>
   </Resource>;
 }
-
-Knowledge.TYPE = TYPE;

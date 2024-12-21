@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Icon from '../Icon';
-import ResourceList from '../ResourceList';
+import ResourceList, { ResourceListType } from '../ResourceList';
 import appData from '../../testData';
 import * as styles from './MainView.less';
 
@@ -23,10 +23,10 @@ export default function MainView() {
         State: <Icon type={Icon.TYPE.EDIT} onClick={() => console.log('Click edit state')} />
       </div>
       <div className={styles.stateContainer}>
-        <ResourceList label="Journal" set={state.journal} type={ResourceList.TYPE.KNOWLEDGE} />
-        <ResourceList label="Ingredients" set={state.ingredients} type={ResourceList.TYPE.INGREDIENT} />
-        <ResourceList label="Knowledge" set={state.knowledge} type={ResourceList.TYPE.KNOWLEDGE} />
-        <ResourceList label="Experiments" set={state.experiments} type={ResourceList.TYPE.EXPERIMENT} />
+        <ResourceList label="Journal" set={state.journal} type={ResourceListType.Knowledge} />
+        <ResourceList label="Ingredients" set={state.ingredients} type={ResourceListType.Ingredient} />
+        <ResourceList label="Knowledge" set={state.knowledge} type={ResourceListType.Knowledge} />
+        <ResourceList label="Experiments" set={state.experiments} type={ResourceListType.Experiment} />
       </div>
       <TestPalette />
     </div>

@@ -6,45 +6,29 @@ import Ingredient from '../Ingredient';
 import Resource from '../Resource';
 import * as styles from './ResourceList.less';
 
-const TYPE: { [key: string]: string } = {
-  KNOWLEDGE: 'knowledge',
-  INGREDIENT: 'ingredient',
-  EXPERIMENT: 'experiment'
+export enum ResourceListType {
+  Knowledge,
+  Ingredient,
+  Experiment
 };
 
-const TYPE_COMPONENT_MAP = {
-  [TYPE.KNOWLEDGE]: Knowledge,
-  [TYPE.INGREDIENT]: Ingredient
-};
-
-const PROP_TYPE_MAP: { [key: string]: { [key: string]: string } } = {
-  [TYPE.KNOWLEDGE]: {
-    'chem': Knowledge.TYPE.CHEMISTY,
-    'bio': Knowledge.TYPE.BIOLOGY,
-    'eng': Knowledge.TYPE.ENGINEERING,
-    'arc': Knowledge.TYPE.ARCANE
-  },
-  [TYPE.INGREDIENT]: {
-    'chem': Ingredient.TYPE.CHEMICAL,
-    'anim': Ingredient.TYPE.ANIMAL,
-    'gear': Ingredient.TYPE.GEAR,
-    'body': Ingredient.TYPE.BODY
-  }
-};
+const TYPE_COMPONENT_MAP = new Map<ResourceListType, ({ type, label }: any) => React.JSX.Element>([
+  [ResourceListType.Knowledge, Knowledge],
+  [ResourceListType.Ingredient, Ingredient],
+]);
 
 type ResourceListProps = {
-  type: typeof TYPE[keyof typeof TYPE],
+  type: ResourceListType,
   set: KnowledgeSet | IngredientSet | ExperimentSet,
   label?: string,
 };
 
 export default function ResourceList({ type, set, label }: ResourceListProps) {
-  const Component = TYPE_COMPONENT_MAP[type];
-  const typeMap = PROP_TYPE_MAP[type];
+  const Component = TYPE_COMPONENT_MAP.get(type);
 
   const nodes = Object.entries(set).filter(([key, value]) => !!value).map(([key, value]) => {
-    return (!!Component && !!typeMap) ? (
-      <Component label={value} type={typeMap[key]} key={key} />
+    return (!!Component) ? (
+      <Component label={value} type={key} key={key} />
     ) : (
       <Resource label={value} key={key}>{key}</Resource>
     );
@@ -57,5 +41,3 @@ export default function ResourceList({ type, set, label }: ResourceListProps) {
     </div>
   )
 };
-
-ResourceList.TYPE = TYPE;
