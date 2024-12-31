@@ -1,4 +1,4 @@
-import { TaskProvider, TaskLocation, ExperimentTier, KnowledgeType, IngredientType } from "./constants";
+import { TaskProvider, TaskLocation, ExperimentTier, KnowledgeType, IngredientType, OtherRewardType } from "./constants";
 
 export type KnowledgeSet = {
   [KnowledgeType.Chemistry]?: number,
@@ -21,14 +21,23 @@ export type ExperimentSet = {
   [ExperimentTier.D]?: number
 };
 
+export type OtherRewardSet = {
+  [OtherRewardType.VP]?: number,
+  [OtherRewardType.Creepy]?: number,
+  [OtherRewardType.Insanity]?: number,
+  [OtherRewardType.Mob]?: number,
+
+};
+
 export type Task = {
+  id: number,
   name?: string,
   tier?: ExperimentTier,
-  provider?: TaskProvider,
+  providers?: TaskProvider[],
   location?: TaskLocation,
   notes?: string,
   requirements?: KnowledgeSet & IngredientSet,
-  rewards?: KnowledgeSet & IngredientSet,
+  rewards?: KnowledgeSet & IngredientSet & OtherRewardSet,
 }
 
 export type AppData = {

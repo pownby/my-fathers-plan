@@ -1,5 +1,11 @@
+@import '../../common.less';
+
 .resourceList {
   display: flex;
   flex-direction: column;
   gap: 4px;
+
+  .title {
+    &:extend(.bold);
+  }
 }

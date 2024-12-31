@@ -1,37 +1,65 @@
 import type { AppData } from "./types";
-import { TaskProvider, TaskLocation, ExperimentTier } from "./constants";
+import { TaskProvider, TaskLocation, ExperimentTier, KnowledgeType, IngredientType, OtherRewardType } from "./constants";
 
 const appData: AppData = {
   state: {
     journal: {
-      chem: 1,
-      bio: 0,
-      eng: 1,
-      arc: 2
+      [KnowledgeType.Chemistry]: 1,
+      [KnowledgeType.Biology]: 0,
+      [KnowledgeType.Engineering]: 1,
+      [KnowledgeType.Arcane]: 2
     },
     ingredients: {
-      chem: 2,
-      anim: 2,
-      gear: 3,
-      body: 1
+      [IngredientType.Chemical]: 2,
+      [IngredientType.Animal]: 2,
+      [IngredientType.Gear]: 3,
+      [IngredientType.Body]: 1
     },
     knowledge: {
-      bio: 1,
-      eng: 2,
-      arc: 1
+      [KnowledgeType.Biology]: 1,
+      [KnowledgeType.Engineering]: 2,
+      [KnowledgeType.Arcane]: 1
     },
     experiments: {
-      A: 2,
-      B: 1
+      [ExperimentTier.A]: 2,
+      [ExperimentTier.B]: 1
     }
   },
   tasks: [
     {
+      id: 0,
       name: 'Test Task',
       tier: ExperimentTier.A,
-      provider: TaskProvider.Servant,
+      providers: [TaskProvider.Servant],
       location: TaskLocation.Town,
-      notes: 'Some notes'
+      notes: 'Some notes',
+      requirements: {
+        [KnowledgeType.Biology]: 3,
+        [IngredientType.Animal]: 2
+      },
+      rewards: {
+        [OtherRewardType.VP]: 3,
+        [OtherRewardType.Creepy]: 1,
+        [OtherRewardType.Insanity]: 1,
+        [KnowledgeType.Biology]: 1
+      }
+    },
+    {
+      id: 1,
+      name: 'A cooler task',
+      tier: ExperimentTier.B,
+      providers: [TaskProvider.Caretaker, TaskProvider.Self],
+      location: TaskLocation.Estate,
+      requirements: {
+        [KnowledgeType.Chemistry]: 2,
+        [KnowledgeType.Engineering]: 1,
+        [IngredientType.Chemical]: 1
+      },
+      rewards: {
+        [OtherRewardType.VP]: 4,
+        [OtherRewardType.Mob]: 1,
+        [OtherRewardType.Creepy]: 2,
+      }
     }
   ]
 };

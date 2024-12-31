@@ -1,13 +1,30 @@
+@import '../../common.less';
+
+.stateTitle {
+  &:extend(.bold);
+}
+
 .stateHeader {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.stateContainer {
-  display: flex;
-  justify-content: space-between;
+.section {
   width: 100%;
   max-width: 1024px;
+}
+
+.stateContainer {
+  &:extend(.section);
+
+  display: flex;
+  justify-content: space-between;
   margin-top: 8px;
+}
+
+.taskContainer {
+  &:extend(.section);
+
+  margin-top: 32px;
 }

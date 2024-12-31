@@ -1,12 +1,12 @@
 export enum TaskProvider {
-  Caretaker = 'caretaker',
-  Servant = 'servant',
-  Self = 'self'
+  Caretaker = 'Caretaker',
+  Servant = 'Servant',
+  Self = 'Self'
 };
 
 export enum TaskLocation {
-  Town = 'town',
-  Estate = 'estate'
+  Town = 'Town',
+  Estate = 'Estate'
 };
 
 export enum ExperimentTier {
@@ -17,15 +17,22 @@ export enum ExperimentTier {
 };
 
 export enum IngredientType {
-  Chemical = 'chem',
+  Chemical = 'chem_i',
   Animal = 'anim',
   Gear = 'gear',
   Body = 'body'
 };
 
 export enum KnowledgeType {
-  Chemistry = 'chem',
+  Chemistry = 'chem_k',
   Biology = 'bio',
   Engineering = 'eng',
   Arcane = 'arc'
+};
+
+export enum OtherRewardType {
+  VP = 'vp',
+  Creepy = 'creepy',
+  Insanity = 'insanity',
+  Mob = 'mob'
 };

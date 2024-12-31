@@ -1,0 +1,35 @@
+@import '../../common.less';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task {
+  border-radius: 5px;
+  border: 2px solid #333;
+  padding: 16px;
+  display: flex;
+  width: 100%;
+
+  .taskContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .name {
+    &:extend(.bold);
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    gap: 24px;
+  }
+}
