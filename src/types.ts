@@ -22,7 +22,6 @@ export type ExperimentSet = {
 };
 
 export type OtherRewardSet = {
-  [OtherRewardType.VP]?: number,
   [OtherRewardType.Creepy]?: number,
   [OtherRewardType.Insanity]?: number,
   [OtherRewardType.Mob]?: number,

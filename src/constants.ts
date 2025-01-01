@@ -31,7 +31,6 @@ export enum KnowledgeType {
 };
 
 export enum OtherRewardType {
-  VP = 'vp',
   Creepy = 'creepy',
   Insanity = 'insanity',
   Mob = 'mob'

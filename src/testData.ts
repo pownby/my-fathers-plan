@@ -38,10 +38,10 @@ const appData: AppData = {
         [IngredientType.Animal]: 2
       },
       rewards: {
-        [OtherRewardType.VP]: 3,
         [OtherRewardType.Creepy]: 1,
         [OtherRewardType.Insanity]: 1,
-        [KnowledgeType.Biology]: 1
+        [KnowledgeType.Biology]: 1,
+        [IngredientType.Animal]: 1
       }
     },
     {
@@ -56,7 +56,6 @@ const appData: AppData = {
         [IngredientType.Chemical]: 1
       },
       rewards: {
-        [OtherRewardType.VP]: 4,
         [OtherRewardType.Mob]: 1,
         [OtherRewardType.Creepy]: 2,
       }

@@ -9,9 +9,9 @@ type ResourceProps = {
 
 export default function Resource({ children, label }: ResourceProps) {
   return (
-    <div className={styles.container}>
+    <span className={styles.container}>
       {children}
-      {label && <div className={styles.label}>{label}</div>}
-    </div>
+      {label && <span className={styles.label}>{label}</span>}
+    </span>
   )
 }

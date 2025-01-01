@@ -18,6 +18,6 @@ type KnowledgeProps = {
 
 export default function Knowledge({ type = KnowledgeType.Chemistry, label }: KnowledgeProps) {
   return <Resource label={label}>
-    <div className={`${styles.cube} ${COLOR_MAP[type]}`}></div>
+    <span className={`${styles.cube} ${COLOR_MAP[type]}`}></span>
   </Resource>;
 }
