@@ -20,6 +20,7 @@ const TYPE = {
   ARROW_CIRCLE_DOWN: 'arrow-circle-down',
   BRAIN: 'brain',
   GRIMACE: 'grimace',
+  TIMES: 'times'
   /*
   Does not work (probably need a newer version):
   * wine-bottle
@@ -62,4 +63,5 @@ Icon.PALETTE =
     <Icon type={TYPE.ARROW_CIRCLE_DOWN}></Icon>
     <Icon type={TYPE.BRAIN}></Icon>
     <Icon type={TYPE.GRIMACE}></Icon>
+    <Icon type={TYPE.TIMES}></Icon>
   </>;

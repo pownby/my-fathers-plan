@@ -30,6 +30,10 @@ export default function MainView() {
         <ResourceList label="Experiments" set={state.experiments} type={ResourceListType.Experiment} />
       </div>
       <div className={styles.taskContainer}>
+        <div className={styles.taskControls}>
+          <button onClick={() => console.log('Click Add Task')}>Add Task</button>
+          <button onClick={() => console.log('Click Clear All')}>Clear All</button>
+        </div>
         <TaskList tasks={tasks} />
       </div>
       <TestPalette />

@@ -36,8 +36,9 @@ export default function TaskList({ tasks }: TaskListProps) {
             </div>}
           </div>
           <div className={styles.controls}>
-            <Icon type={Icon.TYPE.EDIT}></Icon>
-            <Icon type={Icon.TYPE.COPY}></Icon>
+            <Icon type={Icon.TYPE.EDIT} onClick={() => console.log(`Edit ${task.name}`)}></Icon>
+            <Icon type={Icon.TYPE.COPY} onClick={() => console.log(`Copy ${task.name}`)}></Icon>
+            <Icon type={Icon.TYPE.TIMES} onClick={() => console.log(`Remove ${task.name}`)}></Icon>
           </div>
         </div>
       ))}
