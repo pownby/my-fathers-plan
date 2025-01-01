@@ -32,14 +32,14 @@ export default function ResourceList({ type, set, label }: ResourceListProps) {
       return (!!Component) ? (
         <Component label={value} type={key} key={key} />
       ) : (
-        <Resource label={value} key={key}>{key}</Resource>
+        <Resource label={value} key={key}><span className={styles.resourceKey}>{key}</span></Resource>
       );
     }
   );
 
   return (
     <div className={styles.resourceList}>
-      {label && <div className={styles.title}>{label}:</div>}
+      {label && <div className={styles.resourceTitle}>{label}:</div>}
       {nodes.length ? nodes : 'None'}
     </div>
   )
