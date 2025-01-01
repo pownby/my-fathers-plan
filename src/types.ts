@@ -29,7 +29,7 @@ export type OtherRewardSet = {
 };
 
 export type Task = {
-  id: number,
+  id: string,
   name?: string,
   tier?: ExperimentTier,
   providers?: TaskProvider[],

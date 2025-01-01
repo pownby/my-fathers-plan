@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 import type { AppData } from "./types";
 import { TaskProvider, TaskLocation, ExperimentTier, KnowledgeType, IngredientType, OtherRewardType } from "./constants";
 
@@ -27,7 +29,7 @@ const appData: AppData = {
   },
   tasks: [
     {
-      id: 0,
+      id: uuid(),
       name: 'Test Task',
       tier: ExperimentTier.A,
       providers: [TaskProvider.Servant],
@@ -45,7 +47,7 @@ const appData: AppData = {
       }
     },
     {
-      id: 1,
+      id: uuid(),
       name: 'A cooler task',
       tier: ExperimentTier.B,
       providers: [TaskProvider.Caretaker, TaskProvider.Self],
