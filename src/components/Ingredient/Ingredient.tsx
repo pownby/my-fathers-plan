@@ -3,6 +3,7 @@ import React from 'react';
 import Resource from '../Resource';
 import Icon from '../Icon';
 import { IngredientType } from '../../constants';
+import * as styles from './Ingredient.less';
 
 const ICON_MAP = {
   [IngredientType.Chemical]: Icon.TYPE.ATOM,
@@ -19,7 +20,7 @@ type IngredientProps = {
 export default function Ingredient({ type = IngredientType.Chemical, label }: IngredientProps) {
   return (
     <Resource label={label}>
-      <Icon type={ICON_MAP[type]} />
+      <Icon type={ICON_MAP[type]} className={styles.ingredient} />
     </Resource>
   );
 }

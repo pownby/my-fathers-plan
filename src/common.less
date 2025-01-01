@@ -1,3 +1,17 @@
 .bold {
   font-weight: 600;
 }
+
+.heading-color {
+  color: rgb(246, 247, 248);
+}
+
+.heading {
+  &:extend(.heading-color);
+  font-size: 18px;
+}
+
+.title {
+  &:extend(.heading-color);
+  font-size: 20px;
+}

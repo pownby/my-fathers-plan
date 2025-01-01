@@ -34,13 +34,14 @@ const TYPE = {
 type IconProps = {
   type: typeof TYPE[keyof typeof TYPE],
   color?: string,
-  onClick?: () => void
+  onClick?: () => void,
+  className?: string
 }
 
-export default function Icon({ type, color, onClick }: IconProps) {
+export default function Icon({ type, color, onClick, className }: IconProps) {
   const style = color && { color };
-  const className = cx('fas', `fa-${type}`, { [styles.clickable]: !!onClick });
-  return <i className={className} style={style} onClick={onClick}></i>;
+  const resolvedClassName = cx('fas', `fa-${type}`, { [styles.clickable]: !!onClick }, className);
+  return <i className={resolvedClassName} style={style} onClick={onClick}></i>;
 }
 
 Icon.TYPE = TYPE;
