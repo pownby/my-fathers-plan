@@ -30,11 +30,11 @@
   }
 
   .name {
-    &:extend(.title);
+    .title();
   }
 
   .controls {
-    &:extend(.heading-color);
+    .heading-color();
 
     display: flex;
     flex-direction: column;
@@ -44,13 +44,13 @@
   }
 
   .controlsContainer {
-    &:extend(.task .controls);
+    .task .controls();
 
     margin-left: 8px;
   }
 
   .movementContainer {
-    &:extend(.task .controls);
+    .task .controls();
 
     margin-right: 24px;
   }
