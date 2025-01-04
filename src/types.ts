@@ -1,4 +1,5 @@
 import { TaskProvider, TaskLocation, ExperimentTier, KnowledgeType, IngredientType, OtherRewardType } from "./constants";
+import Actions from "./reducer/actions";
 
 export type KnowledgeSet = {
   [KnowledgeType.Chemistry]?: number,
@@ -37,7 +38,7 @@ export type Task = {
   notes?: string,
   requirements?: KnowledgeSet & IngredientSet,
   rewards?: KnowledgeSet & IngredientSet & OtherRewardSet,
-}
+};
 
 export type AppData = {
   state?: {
@@ -47,4 +48,9 @@ export type AppData = {
     experiments?: ExperimentSet
   },
   tasks?: Task[]
-}
+};
+
+export type Action = {
+  type: Actions,
+  payload?: {}
+};

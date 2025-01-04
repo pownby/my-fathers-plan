@@ -24,6 +24,10 @@ type ResourceListProps = {
 };
 
 export default function ResourceList({ type, set, label }: ResourceListProps) {
+  if (!set) {
+    return null;
+  }
+
   const Component = TYPE_COMPONENT_MAP.get(type);
 
   const nodes = Object.entries(set)

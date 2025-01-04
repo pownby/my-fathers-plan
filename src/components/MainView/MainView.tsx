@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import AppContext from '../../context/AppContext';
+import Actions from '../../reducer/actions';
 import Icon from '../Icon';
 import ResourceList, { ResourceListType } from '../ResourceList';
-import appData from '../../testData';
+import testData from '../../testData';
 import TaskList from '../TaskList';
 import * as styles from './MainView.less';
 
@@ -16,7 +18,23 @@ function TestPalette() {
 }
 
 export default function MainView() {
-  const { state = {}, tasks } = appData;
+  const {
+    dispatch,
+    appState: { state = {}, tasks }
+  } = useContext(AppContext);
+
+  function clearAll() {
+    dispatch({
+      type: Actions.CLEAR_TASKS
+    });
+  }
+
+  function setTasks() {
+    dispatch({
+      type: Actions.SET_STATE,
+      payload: testData
+    });
+  }
 
   return (
     <div>
@@ -32,7 +50,8 @@ export default function MainView() {
       <div className={styles.taskContainer}>
         <div className={styles.taskControls}>
           <button onClick={() => console.log('Click Add Task')}>Add Task</button>
-          <button onClick={() => console.log('Click Clear All')}>Clear All</button>
+          <button onClick={setTasks}>Generate Tasks</button>
+          <button onClick={clearAll}>Clear All</button>
         </div>
         <TaskList tasks={tasks} />
       </div>
