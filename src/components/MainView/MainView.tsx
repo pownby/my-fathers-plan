@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useNavigate } from "react-router";
 
 import AppContext from '../../context/AppContext';
 import Actions from '../../reducer/actions';
@@ -22,6 +23,8 @@ export default function MainView() {
     dispatch,
     appState: { state = {}, tasks }
   } = useContext(AppContext);
+
+  const navigate = useNavigate();
 
   function clearAll() {
     dispatch({
@@ -49,7 +52,7 @@ export default function MainView() {
       </div>
       <div className={styles.taskContainer}>
         <div className={styles.taskControls}>
-          <button onClick={() => console.log('Click Add Task')}>Add Task</button>
+          <button onClick={() => navigate('/tasks')}>Add Task</button>
           <button onClick={setTasks}>Generate Tasks</button>
           <button onClick={clearAll}>Clear All</button>
         </div>

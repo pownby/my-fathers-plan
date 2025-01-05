@@ -35,7 +35,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<MainView />} />
-            <Route path="tasks/:taskId" element={<TaskView />} />
+            <Route path="tasks/:taskId?" element={<TaskView />} />
             <Route path="state" element={<StateView />} />
           </Routes>
         </BrowserRouter>
