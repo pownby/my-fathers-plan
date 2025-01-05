@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router";
+import debounce from 'lodash.debounce'
 
 import reducer from './reducer/reducer';
 import { AppData } from './types';
@@ -15,11 +16,17 @@ function getInitiateState(): AppData {
   return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
 }
 
+function writeStorage(value: string) {
+  localStorage.setItem(STORAGE_KEY, value);
+}
+
+const debouncedWriteStorage = debounce(writeStorage, 1000);
+
 export default function App() {
   const [state, dispatch] = useReducer(reducer, null, getInitiateState);
   
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    debouncedWriteStorage(JSON.stringify(state));
   }, [state]);
 
   return (
