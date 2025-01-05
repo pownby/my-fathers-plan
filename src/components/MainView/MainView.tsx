@@ -42,7 +42,7 @@ export default function MainView() {
   return (
     <div>
       <div className={styles.stateHeader}>
-        <p className={styles.stateTitle}>State:</p> <Icon type={Icon.TYPE.EDIT} onClick={() => console.log('Click edit state')} />
+        <span className={styles.stateTitle}>State:</span> <Icon type={Icon.TYPE.EDIT} onClick={() => console.log('Click edit state')} />
       </div>
       <div className={styles.stateContainer}>
         <ResourceList label="Journal" set={state.journal} type={ResourceListType.Knowledge} />

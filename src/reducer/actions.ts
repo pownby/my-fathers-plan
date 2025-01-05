@@ -1,6 +1,6 @@
 enum Actions {
-  ADD_TASK,
   CLEAR_TASKS,
+  SAVE_TASK,
   SET_STATE
 };
 
