@@ -20,7 +20,7 @@ function writeStorage(value: string) {
   localStorage.setItem(STORAGE_KEY, value);
 }
 
-const debouncedWriteStorage = debounce(writeStorage, 1000);
+const debouncedWriteStorage = debounce(writeStorage, 300);
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, null, getInitiateState);

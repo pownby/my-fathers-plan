@@ -26,7 +26,7 @@ export default function TaskList({ tasks }: TaskListProps) {
             <div className={styles.name}>
               {task.name}
             </div>
-            {!!task.providers && <div>
+            {!!task.providers?.length && <div>
               Requires: {task.providers?.join(', ')}
             </div>}
             {!!task.location && <div>

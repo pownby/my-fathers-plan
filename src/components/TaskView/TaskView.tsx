@@ -8,6 +8,8 @@ import { TaskLocation, TaskProvider } from '../../constants';
 import * as styles from './TaskView.less';
 import Actions from '../../reducer/actions';
 
+const NO_LOCATION = 'none';
+
 export default function TaskView() {
   const { taskId } = useParams();
   const [searchParams] = useSearchParams();
@@ -18,29 +20,52 @@ export default function TaskView() {
   const editTask = useTask(taskId);
   const sourceTask = editTask || copyTask;
 
-  const [name, setName] = useState(sourceTask?.name);
-  const [providers, setProviders] = useState(sourceTask?.providers);
-  const [location, setLocation] = useState(sourceTask?.location);
-  const [notes, setNotes] = useState(sourceTask?.notes);
+  const [name, setName] = useState(sourceTask?.name || '');
+  const [providers, setProviders] = useState(sourceTask?.providers || []);
+  const [location, setLocation] = useState(sourceTask?.location || NO_LOCATION);
+  const [notes, setNotes] = useState(sourceTask?.notes || '');
   const [requirements, setRequirements] = useState(sourceTask?.requirements);
   const [rewards, setRewards] = useState(sourceTask?.rewards);
 
   const title = `${!!editTask ? 'Edit' : 'Add'} Task`;
 
   function save() {
-    const isEditing = !!editTask;
     dispatch({
       type: Actions.SAVE_TASK,
       payload: {
         id: editTask?.id || uuid(),
-        name
+        name,
+        providers,
+        location: location === NO_LOCATION ? null : location,
+        notes
       }
-    })
+    });
     navigate('/');
   }
 
   function onChangeName(e: any) {
     setName(e.target.value);
+  }
+
+  function onChangeProvider(e: any) {
+    const { value, checked } = e.target;
+
+    if (checked) {
+      setProviders([
+        ...providers,
+        value
+      ]);
+    } else {
+      setProviders(providers.filter(prov => prov !== value));
+    }
+  }
+
+  function onChangeLocation(e: any) {
+    setLocation(e.target.value);
+  }
+
+  function onChangeNotes(e: any) {
+    setNotes(e.target.value);
   }
 
   return (
@@ -55,19 +80,19 @@ export default function TaskView() {
       <div>
         <div>Requires:</div>
         <div>
-          <input type="checkbox" id="requires_self" value={TaskProvider.Self} />
+          <input type="checkbox" id="requires_self" value={TaskProvider.Self} checked={providers.includes(TaskProvider.Self)} onChange={onChangeProvider} />
           <label htmlFor="requires_self">
             {TaskProvider.Self}
           </label>
         </div>
         <div>
-          <input type="checkbox" id="requires_servant" value={TaskProvider.Servant} />
+          <input type="checkbox" id="requires_servant" value={TaskProvider.Servant} checked={providers.includes(TaskProvider.Servant)} onChange={onChangeProvider} />
           <label htmlFor="requires_servant">
             {TaskProvider.Servant}
           </label>
         </div>
         <div>
-          <input type="checkbox" id="requires_caretaker" value={TaskProvider.Caretaker} />
+          <input type="checkbox" id="requires_caretaker" value={TaskProvider.Caretaker} checked={providers.includes(TaskProvider.Caretaker)} onChange={onChangeProvider} />
           <label htmlFor="requires_caretaker">
             {TaskProvider.Caretaker}
           </label>
@@ -76,19 +101,19 @@ export default function TaskView() {
       <div>
         <div>Location:</div>
         <div>
-          <input type="radio" id="location_na" name="location" value="none" defaultChecked />
+          <input type="radio" id="location_na" name="location" value={NO_LOCATION} onChange={onChangeLocation} checked={location === NO_LOCATION} />
           <label htmlFor="location_na">
             N/A
           </label>
         </div>
         <div>
-          <input type="radio" id="location_town" name="location" value={TaskLocation.Town} />
+          <input type="radio" id="location_town" name="location" value={TaskLocation.Town} onChange={onChangeLocation} checked={location === TaskLocation.Town} />
           <label htmlFor="location_town">
             {TaskLocation.Town}
           </label>
         </div>
         <div>
-          <input type="radio" id="location_estate" name="location" value={TaskLocation.Estate} />
+          <input type="radio" id="location_estate" name="location" value={TaskLocation.Estate} onChange={onChangeLocation} checked={location === TaskLocation.Estate} />
           <label htmlFor="location_estate">
             {TaskLocation.Estate}
           </label>
@@ -97,7 +122,7 @@ export default function TaskView() {
       <div>
         <label>
           Notes:
-          <textarea rows={3} />
+          <textarea rows={3} value={notes} onChange={onChangeNotes} />
         </label>
       </div>
       <div>Requirements:</div>
