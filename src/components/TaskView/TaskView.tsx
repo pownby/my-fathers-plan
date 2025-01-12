@@ -7,6 +7,8 @@ import useTask from '../../hooks/useTask';
 import { TaskLocation, TaskProvider } from '../../constants';
 import * as styles from './TaskView.less';
 import Actions from '../../reducer/actions';
+import Icon from '../Icon';
+import RewardsList from '../RewardsList';
 
 const NO_LOCATION = 'none';
 
@@ -125,8 +127,18 @@ export default function TaskView() {
           <textarea rows={3} value={notes} onChange={onChangeNotes} />
         </label>
       </div>
-      <div>Requirements:</div>
-      <div>Rewards:</div>
+      <div>
+        Requirements: <Icon type={Icon.TYPE.EDIT} />
+        <div className={styles.rewardsList}>
+          <RewardsList rewards={requirements} />
+        </div>
+      </div>
+      <div>
+        Rewards: <Icon type={Icon.TYPE.EDIT} />
+        <div className={styles.rewardsList}>
+          <RewardsList rewards={rewards} />
+        </div>
+      </div>
       <div className={styles.buttons}>
         <button onClick={save}>Save</button>
         <button onClick={() => navigate('/')}>Cancel</button>

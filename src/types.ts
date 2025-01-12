@@ -26,8 +26,9 @@ export type OtherRewardSet = {
   [OtherRewardType.Creepy]?: number,
   [OtherRewardType.Insanity]?: number,
   [OtherRewardType.Mob]?: number,
-
 };
+
+export type RewardSet = KnowledgeSet & IngredientSet & OtherRewardSet;
 
 export type Task = {
   id: string,
@@ -37,7 +38,7 @@ export type Task = {
   location?: TaskLocation,
   notes?: string,
   requirements?: KnowledgeSet & IngredientSet,
-  rewards?: KnowledgeSet & IngredientSet & OtherRewardSet,
+  rewards?: RewardSet,
 };
 
 export type AppData = {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { KnowledgeSet, IngredientSet, OtherRewardSet } from '../../types';
+import { RewardSet } from '../../types';
 import { KnowledgeType, IngredientType, OtherRewardType } from '../../constants';
 import Knowledge from '../Knowledge';
 import Ingredient from '../Ingredient';
@@ -8,7 +8,7 @@ import Ingredient from '../Ingredient';
 import * as styles from './RewardsList.less';
 
 type RewardsListProps = {
-  rewards: KnowledgeSet & IngredientSet & OtherRewardSet
+  rewards: RewardSet
 };
 
 function isKnowledgeType(type: string) {
@@ -23,7 +23,7 @@ function isOtherRewardType(type: string) {
   return (Object.values(OtherRewardType) as string[]).includes(type);
 }
 
-export default function RewardsList({ rewards }: RewardsListProps) {
+export default function RewardsList({ rewards = {} }: RewardsListProps) {
   const innerNodes = Object.entries(rewards)
     .filter(([key, value]) => !!value)
     .map(([key, value]) => {
@@ -37,12 +37,12 @@ export default function RewardsList({ rewards }: RewardsListProps) {
 
   return (
     <span className={styles.rewardsList}>
-      {innerNodes.map((node, i) => (
+      {!!innerNodes?.length ? innerNodes.map((node, i) => (
         <React.Fragment key={i}>
           {node}
           {i + 1 < innerNodes.length ? <span>, </span> : null}
         </React.Fragment>
-      ))}
+      )) : <span>None</span>}
     </span>
   );
 }
