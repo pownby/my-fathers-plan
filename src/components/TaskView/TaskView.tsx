@@ -9,6 +9,8 @@ import * as styles from './TaskView.less';
 import Actions from '../../reducer/actions';
 import Icon from '../Icon';
 import RewardsList from '../RewardsList';
+import { RewardSet } from '../../types';
+import RewardsInput from '../RewardsInput';
 
 const NO_LOCATION = 'none';
 
@@ -29,6 +31,9 @@ export default function TaskView() {
   const [requirements, setRequirements] = useState(sourceTask?.requirements);
   const [rewards, setRewards] = useState(sourceTask?.rewards);
 
+  const [editingRequirements, setEditingRequirements] = useState(false);
+  const [editingRewards, setEditingRewards] = useState(false);
+
   const title = `${!!editTask ? 'Edit' : 'Add'} Task`;
 
   function save() {
@@ -39,7 +44,9 @@ export default function TaskView() {
         name,
         providers,
         location: location === NO_LOCATION ? null : location,
-        notes
+        notes,
+        rewards,
+        requirements
       }
     });
     navigate('/');
@@ -68,6 +75,24 @@ export default function TaskView() {
 
   function onChangeNotes(e: any) {
     setNotes(e.target.value);
+  }
+
+  function toggleEditRequirements() {
+    setEditingRequirements(!editingRequirements);
+  }
+
+  function toggleEditRewards() {
+    setEditingRewards(!editingRewards);
+  }
+
+  function saveRequirements(newRequirements: RewardSet) {
+    setRequirements(newRequirements);
+    setEditingRequirements(false);
+  }
+
+  function saveRewards(newRewards: RewardSet) {
+    setRewards(newRewards);
+    setEditingRewards(false);
   }
 
   return (
@@ -128,21 +153,31 @@ export default function TaskView() {
         </label>
       </div>
       <div>
-        Requirements: <Icon type={Icon.TYPE.EDIT} />
+        Requirements: {!editingRequirements && <Icon type={Icon.TYPE.EDIT} onClick={toggleEditRequirements} />}
         <div className={styles.rewardsList}>
-          <RewardsList rewards={requirements} />
+          {!!editingRequirements ? (
+            <RewardsInput onComplete={saveRequirements} onCancel={toggleEditRequirements} initialValue={requirements} />
+          ) : (
+            <RewardsList rewards={requirements} />
+          )}
         </div>
       </div>
       <div>
-        Rewards: <Icon type={Icon.TYPE.EDIT} />
+        Rewards: {!editingRewards && <Icon type={Icon.TYPE.EDIT} onClick={toggleEditRewards} />}
         <div className={styles.rewardsList}>
-          <RewardsList rewards={rewards} />
+          {!!editingRewards ? (
+            <RewardsInput onComplete={saveRewards} onCancel={toggleEditRewards} initialValue={rewards} />
+          ) : (
+            <RewardsList rewards={rewards} />
+          )}
         </div>
       </div>
-      <div className={styles.buttons}>
-        <button onClick={save}>Save</button>
-        <button onClick={() => navigate('/')}>Cancel</button>
-      </div>
+      {(!editingRequirements && !editingRewards) && (
+        <div className={styles.buttons}>
+          <button onClick={save}>Save</button>
+          <button onClick={() => navigate('/')}>Cancel</button>
+        </div>
+      )}
     </div>
   );
 }
