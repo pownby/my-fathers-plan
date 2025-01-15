@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { RewardSet } from '../../types';
 import { KnowledgeType, IngredientType, OtherRewardType } from '../../constants';
 import Knowledge from '../Knowledge';
 import Ingredient from '../Ingredient';
+import sortRewardsEntries from '../../utils/sortRewardsEntries';
 
 import * as styles from './RewardsList.less';
 
@@ -24,8 +25,9 @@ function isOtherRewardType(type: string) {
 }
 
 export default function RewardsList({ rewards = {} }: RewardsListProps) {
-  const innerNodes = Object.entries(rewards)
+  const innerNodes = useMemo(() => Object.entries(rewards)
     .filter(([key, value]) => !!value)
+    .sort(sortRewardsEntries)
     .map(([key, value]) => {
       if (isKnowledgeType(key)) {
         return <span>{value}x <Knowledge type={key as KnowledgeType} /></span>;
@@ -33,7 +35,7 @@ export default function RewardsList({ rewards = {} }: RewardsListProps) {
         return <span>{value}x <Ingredient type={key as IngredientType} /></span>;
       }
       return `${value}x ${key}`;
-    });
+    }), [rewards]);
 
   return (
     <span className={styles.rewardsList}>
