@@ -16,6 +16,14 @@ type TaskListProps = {
 export default function TaskList({ tasks }: TaskListProps) {
   const { dispatch } = useContext(AppContext);
 
+  function getDeleteTask(task: Task) {
+    return () => {
+      if (window.confirm(`Are you sure you want to delete ${task.name ? task.name : 'this task'}?`)) {
+        dispatch({ type: Actions.DELETE_TASK, payload: task });
+      }
+    }
+  }
+
   return !!tasks?.length && (
     <div className={styles.container}>
       {tasks.map((task, i) => (
@@ -50,7 +58,7 @@ export default function TaskList({ tasks }: TaskListProps) {
           <div className={styles.controlsContainer}>
             <Link to={`/tasks/${task.id}`}><Icon type={Icon.TYPE.EDIT} /></Link>
             <Link to={`/tasks?c=${task.id}`}><Icon type={Icon.TYPE.COPY} /></Link>
-            <Icon type={Icon.TYPE.TIMES} onClick={() => console.log(`Remove ${task.name}`)}></Icon>
+            <Icon type={Icon.TYPE.TIMES} onClick={getDeleteTask(task)}></Icon>
           </div>
         </div>
       ))}

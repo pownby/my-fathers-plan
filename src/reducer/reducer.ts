@@ -11,6 +11,14 @@ export default function reducer(state: AppData, action: Action): AppData {
         tasks: []
       };
     }
+    case Actions.DELETE_TASK: {
+      const task = payload as Task;
+      
+      return {
+        ...state,
+        tasks: state.tasks.filter(t => t.id !== task.id)
+      };
+    }
     case Actions.MOVE_TASK_UP: {
       const newTask = payload as Task;
       const taskIndex = state.tasks.findIndex((t) => t.id === newTask.id);
