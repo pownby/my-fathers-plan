@@ -9,6 +9,8 @@ import testData from '../../testData';
 import TaskList from '../TaskList';
 import * as styles from './MainView.less';
 
+const isDevMode = process.env.NODE_ENV === 'development';
+
 function TestPalette() {
   return <>
     <div style={{ display: 'flex', gap: '12px', marginTop: 60 }}>
@@ -41,24 +43,28 @@ export default function MainView() {
 
   return (
     <div>
-      <div className={styles.stateHeader}>
-        <span className={styles.stateTitle}>State:</span> <Icon type={Icon.TYPE.EDIT} onClick={() => console.log('Click edit state')} />
-      </div>
-      <div className={styles.stateContainer}>
-        <ResourceList label="Journal" set={state.journal} type={ResourceListType.Knowledge} />
-        <ResourceList label="Ingredients" set={state.ingredients} type={ResourceListType.Ingredient} />
-        <ResourceList label="Knowledge" set={state.knowledge} type={ResourceListType.Knowledge} />
-        <ResourceList label="Experiments" set={state.experiments} type={ResourceListType.Experiment} />
-      </div>
+      {isDevMode && (
+        <>
+          <div className={styles.stateHeader}>
+            <span className={styles.stateTitle}>State:</span> <Icon type={Icon.TYPE.EDIT} onClick={() => console.log('Click edit state')} />
+          </div>
+          <div className={styles.stateContainer}>
+            <ResourceList label="Journal" set={state.journal} type={ResourceListType.Knowledge} />
+            <ResourceList label="Ingredients" set={state.ingredients} type={ResourceListType.Ingredient} />
+            <ResourceList label="Knowledge" set={state.knowledge} type={ResourceListType.Knowledge} />
+            <ResourceList label="Experiments" set={state.experiments} type={ResourceListType.Experiment} />
+          </div>
+        </>
+      )}
       <div className={styles.taskContainer}>
         <div className={styles.taskControls}>
           <button onClick={() => navigate('/tasks')}>Add Task</button>
-          <button onClick={setTasks}>Generate Tasks</button>
+          {isDevMode && <button onClick={setTasks}>Generate Tasks</button>}
           <button onClick={clearAll}>Clear All</button>
         </div>
         <TaskList tasks={tasks} />
       </div>
-      <TestPalette />
+      {isDevMode && <TestPalette />}
     </div>
   );
 }

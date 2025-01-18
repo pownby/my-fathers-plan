@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -54,7 +55,12 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new HtmlWebpackPlugin({ template: './public/index.html', publicPath: '/' }),
-      new MiniCssExtractPlugin()
+      new MiniCssExtractPlugin(),
+      new webpack.DefinePlugin({
+        'process.env': {
+            'NODE_ENV': JSON.stringify(devMode ? 'development' : 'production')
+        }
+      })
     ],
     devServer: {
       historyApiFallback: true,
