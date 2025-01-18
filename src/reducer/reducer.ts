@@ -5,12 +5,47 @@ export default function reducer(state: AppData, action: Action): AppData {
   const { type, payload = {} } = action;
 
   switch (type) {
-    case Actions.CLEAR_TASKS:
+    case Actions.CLEAR_TASKS: {
       return {
         ...state,
         tasks: []
       };
-    case Actions.SAVE_TASK:
+    }
+    case Actions.MOVE_TASK_UP: {
+      const newTask = payload as Task;
+      const taskIndex = state.tasks.findIndex((t) => t.id === newTask.id);
+      if (taskIndex > 0) {
+        const newTasks = state.tasks.slice(0);
+        const task = newTasks[taskIndex];
+
+        newTasks.splice(taskIndex, 1);
+        newTasks.splice(taskIndex - 1, 0, task);
+
+        return {
+          ...state,
+          tasks: newTasks
+        };
+      }
+      return state;
+    }
+    case Actions.MOVE_TASK_DOWN: {
+      const newTask = payload as Task;
+      const taskIndex = state.tasks.findIndex((t) => t.id === newTask.id);
+      if (taskIndex < state.tasks.length - 1) {
+        const newTasks = state.tasks.slice(0);
+        const task = newTasks[taskIndex];
+
+        newTasks.splice(taskIndex, 1);
+        newTasks.splice(taskIndex + 1, 0, task);
+
+        return {
+          ...state,
+          tasks: newTasks
+        };
+      }
+      return state;
+    }
+    case Actions.SAVE_TASK: {
       const newTask = payload as Task;
       const taskIndex = state.tasks.findIndex((t) => t.id === newTask.id);
       
@@ -29,10 +64,12 @@ export default function reducer(state: AppData, action: Action): AppData {
         ...state,
         tasks: newTasks
       };
-    case Actions.SET_STATE:
+    }
+    case Actions.SET_STATE: {
       return {
         ...payload
       };
+    }
   }
 
   return state;

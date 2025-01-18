@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import cx from 'classnames';
 import { Link } from "react-router";
 
 import { Task } from '../../types';
 import Icon from '../Icon';
 import RewardsList from '../RewardsList';
+import AppContext from '../../context/AppContext';
+import Actions from '../../reducer/actions';
 import * as styles from './TaskList.less';
 
 type TaskListProps = {
@@ -12,14 +14,16 @@ type TaskListProps = {
 };
 
 export default function TaskList({ tasks }: TaskListProps) {
+  const { dispatch } = useContext(AppContext);
+
   return !!tasks?.length && (
     <div className={styles.container}>
       {tasks.map((task, i) => (
         <div key={task.id} className={cx(styles.task, styles[task.location])}>
           {tasks.length > 1 && (
             <div className={styles.movementContainer}>
-              {i > 0 && <Icon type={Icon.TYPE.ARROW_CIRCLE_UP} onClick={() => console.log(`Move up ${task.name}`)}></Icon>}
-              {i + 1 < tasks.length && <Icon type={Icon.TYPE.ARROW_CIRCLE_DOWN} onClick={() => console.log(`Move down ${task.name}`)}></Icon>}
+              {i > 0 && <Icon type={Icon.TYPE.ARROW_CIRCLE_UP} onClick={() => dispatch({ type: Actions.MOVE_TASK_UP, payload: task })}></Icon>}
+              {i + 1 < tasks.length && <Icon type={Icon.TYPE.ARROW_CIRCLE_DOWN} onClick={() => dispatch({ type: Actions.MOVE_TASK_DOWN, payload: task })}></Icon>}
             </div>
           )}
           <div className={cx(styles.taskContent)}>
