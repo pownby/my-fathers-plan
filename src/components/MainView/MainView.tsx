@@ -60,7 +60,7 @@ export default function MainView() {
         <div className={styles.taskControls}>
           <button onClick={() => navigate('/tasks')}>Add Task</button>
           {isDevMode && <button onClick={setTasks}>Generate Tasks</button>}
-          <button onClick={clearAll}>Clear All</button>
+          {!!tasks?.length && <button onClick={clearAll}>Clear All</button>}
         </div>
         <TaskList tasks={tasks} />
       </div>

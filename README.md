@@ -1,10 +1,17 @@
-# App
-React App
+# My Father's Plan
+Helper app for My Father's Work
 
-### `npm start` or `yarn start`
+## Development
 
-Runs the app in development mode.
+Local dev: `yarn start`
 
-### `npm run build` or `yarn build`
+Production build: `yarn build`
 
-Builds the app for production to the `dist` folder.
+## Wishlist
+
+- Define board state (knowledge, ingredients, journal, experiments, figures)
+- Better styling
+- Modal dialog for resource input (instead of inline)
+- Improvement on resource number inputs
+- Warn if tasks cannot be completed (e.g. not even servants, resources, etc.)
+- Light mode
