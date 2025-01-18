@@ -29,9 +29,9 @@ export default function MainView() {
   const navigate = useNavigate();
 
   function clearAll() {
-    dispatch({
-      type: Actions.CLEAR_TASKS
-    });
+    if (window.confirm('Are you sure you want to clear all tasks?')) {
+      dispatch({ type: Actions.CLEAR_TASKS });
+    }
   }
 
   function setTasks() {
