@@ -13,17 +13,19 @@ export default function reducer(state: AppData, action: Action): AppData {
     }
     case Actions.DELETE_TASK: {
       const task = payload as Task;
+      const tasks = state.tasks || [];
       
       return {
         ...state,
-        tasks: state.tasks.filter(t => t.id !== task.id)
+        tasks: tasks.filter(t => t.id !== task.id) || []
       };
     }
     case Actions.MOVE_TASK_UP: {
       const newTask = payload as Task;
-      const taskIndex = state.tasks.findIndex((t) => t.id === newTask.id);
+      const tasks = state.tasks || [];
+      const taskIndex = tasks.findIndex((t) => t.id === newTask.id);
       if (taskIndex > 0) {
-        const newTasks = state.tasks.slice(0);
+        const newTasks = tasks.slice(0);
         const task = newTasks[taskIndex];
 
         newTasks.splice(taskIndex, 1);
@@ -38,9 +40,10 @@ export default function reducer(state: AppData, action: Action): AppData {
     }
     case Actions.MOVE_TASK_DOWN: {
       const newTask = payload as Task;
-      const taskIndex = state.tasks.findIndex((t) => t.id === newTask.id);
-      if (taskIndex < state.tasks.length - 1) {
-        const newTasks = state.tasks.slice(0);
+      const tasks = state.tasks || [];
+      const taskIndex = tasks.findIndex((t) => t.id === newTask.id);
+      if (taskIndex < tasks.length - 1 && taskIndex > -1) {
+        const newTasks = tasks.slice(0);
         const task = newTasks[taskIndex];
 
         newTasks.splice(taskIndex, 1);
@@ -55,16 +58,17 @@ export default function reducer(state: AppData, action: Action): AppData {
     }
     case Actions.SAVE_TASK: {
       const newTask = payload as Task;
-      const taskIndex = state.tasks.findIndex((t) => t.id === newTask.id);
+      const tasks = state.tasks || [];
+      const taskIndex = tasks.findIndex((t) => t.id === newTask.id);
       
       let newTasks;
       if (taskIndex === -1) {
         newTasks = [
-          ...state.tasks,
+          ...tasks,
           newTask
         ];
       } else {
-        newTasks = state.tasks.slice(0);
+        newTasks = tasks.slice(0);
         newTasks.splice(taskIndex, 1, newTask);
       }
      

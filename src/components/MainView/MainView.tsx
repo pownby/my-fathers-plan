@@ -13,7 +13,7 @@ const isDevMode = process.env.NODE_ENV === 'development';
 
 function TestPalette() {
   return <>
-    <div style={{ display: 'flex', gap: '12px', marginTop: 60 }}>
+    <div style={{ display: 'flex', gap: '12px', marginTop: 60, overflowX: 'auto' }}>
       {Icon.PALETTE}
       <Icon type={Icon.TYPE.PAW} color="#74C0FC" />
     </div>
