@@ -4,6 +4,7 @@ import { RewardSet } from '../../types';
 import { KnowledgeType, IngredientType, OtherRewardType } from '../../constants';
 import Knowledge from '../Knowledge';
 import Ingredient from '../Ingredient';
+import OtherReward from '../OtherReward';
 import sortRewardsEntries from '../../utils/sortRewardsEntries';
 
 import * as styles from './RewardsList.less';
@@ -33,6 +34,8 @@ export default function RewardsList({ rewards = {} }: RewardsListProps) {
         return <span>{value}x <Knowledge type={key as KnowledgeType} /></span>;
       } else if (isIngredientType(key)) {
         return <span>{value}x <Ingredient type={key as IngredientType} /></span>;
+      } else if (isOtherRewardType(key)) {
+        return <span>{value}x <OtherReward type={key as OtherRewardType} /></span>
       }
       return `${value}x ${key}`;
     }), [rewards]);
