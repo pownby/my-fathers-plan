@@ -52,7 +52,10 @@ export type AppData = {
   tasks?: Task[]
 };
 
-export type Action = {
-  type: Actions,
-  payload?: {}
-};
+export type Action =
+  { type: Actions.CLEAR_TASKS } |
+  { type: Actions.DELETE_TASK, payload: Task } |
+  { type: Actions.MOVE_TASK_DOWN, payload: Task } |
+  { type: Actions.MOVE_TASK_UP, payload: Task } |
+  { type: Actions.SAVE_TASK, payload: Task } |
+  { type: Actions.SET_STATE, payload: AppData };

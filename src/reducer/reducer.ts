@@ -1,8 +1,8 @@
 import Actions from "./actions";
-import { AppData, Action, Task } from "../types";
+import { AppData, Action } from "../types";
 
 export default function reducer(state: AppData, action: Action): AppData {
-  const { type, payload = {} } = action;
+  const { type } = action;
 
   switch (type) {
     case Actions.CLEAR_TASKS: {
@@ -12,7 +12,7 @@ export default function reducer(state: AppData, action: Action): AppData {
       };
     }
     case Actions.DELETE_TASK: {
-      const task = payload as Task;
+      const task = action.payload;
       const tasks = state.tasks || [];
       
       return {
@@ -21,7 +21,7 @@ export default function reducer(state: AppData, action: Action): AppData {
       };
     }
     case Actions.MOVE_TASK_UP: {
-      const newTask = payload as Task;
+      const newTask = action.payload;
       const tasks = state.tasks || [];
       const taskIndex = tasks.findIndex((t) => t.id === newTask.id);
       if (taskIndex > 0) {
@@ -39,7 +39,7 @@ export default function reducer(state: AppData, action: Action): AppData {
       return state;
     }
     case Actions.MOVE_TASK_DOWN: {
-      const newTask = payload as Task;
+      const newTask = action.payload;
       const tasks = state.tasks || [];
       const taskIndex = tasks.findIndex((t) => t.id === newTask.id);
       if (taskIndex < tasks.length - 1 && taskIndex > -1) {
@@ -57,7 +57,7 @@ export default function reducer(state: AppData, action: Action): AppData {
       return state;
     }
     case Actions.SAVE_TASK: {
-      const newTask = payload as Task;
+      const newTask = action.payload;
       const tasks = state.tasks || [];
       const taskIndex = tasks.findIndex((t) => t.id === newTask.id);
       
@@ -79,7 +79,7 @@ export default function reducer(state: AppData, action: Action): AppData {
     }
     case Actions.SET_STATE: {
       return {
-        ...payload as AppData
+        ...action.payload
       };
     }
   }
