@@ -79,7 +79,7 @@ export default function reducer(state: AppData, action: Action): AppData {
     }
     case Actions.SET_STATE: {
       return {
-        ...payload
+        ...payload as AppData
       };
     }
   }

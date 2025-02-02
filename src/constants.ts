@@ -1,3 +1,5 @@
+export const SCHEMA_VERSION = 1;
+
 export enum TaskProvider {
   Caretaker = 'Caretaker',
   Servant = 'Servant',

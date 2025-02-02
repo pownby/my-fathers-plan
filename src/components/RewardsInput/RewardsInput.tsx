@@ -4,6 +4,7 @@ import { KnowledgeType, IngredientType, OtherRewardType } from '../../constants'
 import { RewardSet } from '../../types';
 import Knowledge from '../Knowledge';
 import Ingredient from '../Ingredient';
+import OtherReward from '../OtherReward';
 import RewardsInputRow from './RewardsInputRow';
 import * as styles from './RewardsInput.less';
 
@@ -65,13 +66,13 @@ export default function RewardsInput({ onComplete, onCancel, initialValue }: Rew
       <div>
         <div>Others:</div>
         <RewardsInputRow value={rewards[OtherRewardType.Creepy]} onChange={getOnChange(OtherRewardType.Creepy)}>
-          {OtherRewardType.Creepy}
+          <OtherReward type={OtherRewardType.Creepy} />
         </RewardsInputRow>
         <RewardsInputRow value={rewards[OtherRewardType.Insanity]} onChange={getOnChange(OtherRewardType.Insanity)}>
-          {OtherRewardType.Insanity}
+          <OtherReward type={OtherRewardType.Insanity} />
         </RewardsInputRow>
         <RewardsInputRow value={rewards[OtherRewardType.Mob]} onChange={getOnChange(OtherRewardType.Mob)}>
-          {OtherRewardType.Mob}
+          <OtherReward type={OtherRewardType.Mob} />
         </RewardsInputRow>
       </div>
       <div>

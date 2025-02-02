@@ -1,9 +1,10 @@
 import { v4 as uuid } from 'uuid';
 
 import type { AppData } from "./types";
-import { TaskProvider, TaskLocation, ExperimentTier, KnowledgeType, IngredientType, OtherRewardType } from "./constants";
+import { SCHEMA_VERSION, TaskProvider, TaskLocation, ExperimentTier, KnowledgeType, IngredientType, OtherRewardType } from "./constants";
 
 const appData: AppData = {
+  version: SCHEMA_VERSION,
   state: {
     journal: {
       [KnowledgeType.Chemistry]: 1,

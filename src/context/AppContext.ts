@@ -1,5 +1,6 @@
 import { createContext, Dispatch } from 'react';
 import { Action, AppData } from '../types';
+import { SCHEMA_VERSION } from '../constants';
 
 type ContextType = {
   dispatch: Dispatch<Action>,
@@ -8,5 +9,5 @@ type ContextType = {
 
 export default createContext<ContextType>({
   dispatch: () => {},
-  appState: {}
+  appState: { version: SCHEMA_VERSION }
 });

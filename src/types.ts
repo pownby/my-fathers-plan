@@ -42,6 +42,7 @@ export type Task = {
 };
 
 export type AppData = {
+  version: number,
   state?: {
     journal?: KnowledgeSet,
     ingredients?: IngredientSet,

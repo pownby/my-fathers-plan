@@ -4,6 +4,7 @@ import debounce from 'lodash.debounce'
 
 import reducer from './reducer/reducer';
 import { AppData } from './types';
+import { SCHEMA_VERSION } from './constants';
 import * as styles from './App.less';
 import MainView from './components/MainView';
 import TaskView from './components/TaskView';
@@ -14,7 +15,7 @@ import ErrorBoundary from './ErrorBoundary';
 const STORAGE_KEY = 'appState';
 
 function getInitiateState(): AppData {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { version: SCHEMA_VERSION };
 }
 
 function writeStorage(value: string) {
