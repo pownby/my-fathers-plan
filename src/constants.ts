@@ -17,21 +17,21 @@ export enum ExperimentTier {
 };
 
 export enum IngredientType {
-  Chemical = 'chem_i',
-  Animal = 'anim',
-  Gear = 'gear',
-  Body = 'body'
+  Chemical = 'i_chem',
+  Animal = 'i_anim',
+  Gear = 'i_gear',
+  Body = 'i_body'
 };
 
 export enum KnowledgeType {
-  Chemistry = 'chem_k',
-  Biology = 'bio',
-  Engineering = 'eng',
-  Arcane = 'arc'
+  Chemistry = 'k_chem',
+  Biology = 'k_bio',
+  Engineering = 'k_eng',
+  Arcane = 'k_arc'
 };
 
 export enum OtherRewardType {
-  Creepy = 'creepy',
-  Insanity = 'insanity',
-  Mob = 'mob'
+  Creepy = 'o_creepy',
+  Insanity = 'o_insanity',
+  Mob = 'o_mob'
 };
