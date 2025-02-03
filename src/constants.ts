@@ -7,6 +7,7 @@ export enum TaskProvider {
 };
 
 export enum TaskLocation {
+  None = 'None',
   Town = 'Town',
   Estate = 'Estate'
 };

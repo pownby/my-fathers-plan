@@ -35,7 +35,7 @@ export type Task = {
   name?: string,
   tier?: ExperimentTier,
   providers?: TaskProvider[],
-  location?: TaskLocation,
+  location?: TaskLocation | null,
   notes?: string,
   requirements?: KnowledgeSet & IngredientSet,
   rewards?: RewardSet,

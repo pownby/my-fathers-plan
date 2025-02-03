@@ -12,8 +12,6 @@ import RewardsList from '../RewardsList';
 import { RewardSet } from '../../types';
 import RewardsInput from '../RewardsInput';
 
-const NO_LOCATION = 'none';
-
 export default function TaskView() {
   const { taskId } = useParams();
   const [searchParams] = useSearchParams();
@@ -26,7 +24,7 @@ export default function TaskView() {
 
   const [name, setName] = useState(sourceTask?.name || '');
   const [providers, setProviders] = useState(sourceTask?.providers || []);
-  const [location, setLocation] = useState(sourceTask?.location || NO_LOCATION);
+  const [location, setLocation] = useState(sourceTask?.location || TaskLocation.None);
   const [notes, setNotes] = useState(sourceTask?.notes || '');
   const [requirements, setRequirements] = useState(sourceTask?.requirements);
   const [rewards, setRewards] = useState(sourceTask?.rewards);
@@ -43,7 +41,7 @@ export default function TaskView() {
         id: editTask?.id || uuid(),
         name,
         providers,
-        location: location === NO_LOCATION ? null : location,
+        location: location === TaskLocation.None ? null : location,
         notes,
         rewards,
         requirements
@@ -128,7 +126,7 @@ export default function TaskView() {
       <div>
         <div>Location:</div>
         <div>
-          <input type="radio" id="location_na" name="location" value={NO_LOCATION} onChange={onChangeLocation} checked={location === NO_LOCATION} />
+          <input type="radio" id="location_na" name="location" value={TaskLocation.None} onChange={onChangeLocation} checked={location === TaskLocation.None} />
           <label htmlFor="location_na">
             N/A
           </label>
