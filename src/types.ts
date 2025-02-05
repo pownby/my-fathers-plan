@@ -41,14 +41,16 @@ export type Task = {
   rewards?: RewardSet,
 };
 
+export type TableauState = {
+  journal?: KnowledgeSet,
+  ingredients?: IngredientSet,
+  knowledge?: KnowledgeSet,
+  experiments?: ExperimentSet
+};
+
 export type AppData = {
   version: number,
-  state?: {
-    journal?: KnowledgeSet,
-    ingredients?: IngredientSet,
-    knowledge?: KnowledgeSet,
-    experiments?: ExperimentSet
-  },
+  tableau?: TableauState,
   tasks?: Task[]
 };
 
@@ -58,4 +60,5 @@ export type Action =
   { type: Actions.MOVE_TASK_DOWN, payload: Task } |
   { type: Actions.MOVE_TASK_UP, payload: Task } |
   { type: Actions.SAVE_TASK, payload: Task } |
-  { type: Actions.SET_STATE, payload: AppData };
+  { type: Actions.SET_STATE, payload: AppData } |
+  { type: Actions.SET_TABLEAU, payload: TableauState };

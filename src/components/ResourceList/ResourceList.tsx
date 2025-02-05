@@ -5,6 +5,7 @@ import Knowledge from '../Knowledge';
 import Ingredient from '../Ingredient';
 import Resource from '../Resource';
 import * as styles from './ResourceList.less';
+import sortRewardsEntries from '../../utils/sortRewardsEntries';
 
 export enum ResourceListType {
   Knowledge,
@@ -32,6 +33,7 @@ export default function ResourceList({ type, set, label }: ResourceListProps) {
 
   const nodes = Object.entries(set)
     .filter(([key, value]) => !!value)
+    .sort(sortRewardsEntries)
     .map(([key, value]) => {
       return (!!Component) ? (
         <Component label={value} type={key} key={key} />

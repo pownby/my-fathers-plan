@@ -82,6 +82,14 @@ export default function reducer(state: AppData, action: Action): AppData {
         ...action.payload
       };
     }
+    case Actions.SET_TABLEAU: {
+      return {
+        ...state,
+        tableau: {
+          ...action.payload
+        }
+      }
+    }
   }
 
   return state;

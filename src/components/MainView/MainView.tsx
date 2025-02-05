@@ -23,7 +23,7 @@ function TestPalette() {
 export default function MainView() {
   const {
     dispatch,
-    appState: { state = {}, tasks }
+    appState: { tableau = {}, tasks }
   } = useContext(AppContext);
 
   const navigate = useNavigate();
@@ -45,14 +45,14 @@ export default function MainView() {
     <div>
       {isDevMode && (
         <>
-          <div className={styles.stateHeader}>
-            <span className={styles.stateTitle}>State:</span> <Icon type={Icon.TYPE.EDIT} onClick={() => console.log('Click edit state')} />
+          <div className={styles.tableauHeader}>
+            <span className={styles.tableauTitle}>Tableau:</span> <Icon type={Icon.TYPE.EDIT} onClick={() => navigate('/tableau')} />
           </div>
-          <div className={styles.stateContainer}>
-            <ResourceList label="Journal" set={state.journal} type={ResourceListType.Knowledge} />
-            <ResourceList label="Ingredients" set={state.ingredients} type={ResourceListType.Ingredient} />
-            <ResourceList label="Knowledge" set={state.knowledge} type={ResourceListType.Knowledge} />
-            <ResourceList label="Experiments" set={state.experiments} type={ResourceListType.Experiment} />
+          <div className={styles.tableauContainer}>
+            <ResourceList label="Journal" set={tableau.journal} type={ResourceListType.Knowledge} />
+            <ResourceList label="Ingredients" set={tableau.ingredients} type={ResourceListType.Ingredient} />
+            <ResourceList label="Knowledge" set={tableau.knowledge} type={ResourceListType.Knowledge} />
+            <ResourceList label="Experiments" set={tableau.experiments} type={ResourceListType.Experiment} />
           </div>
         </>
       )}

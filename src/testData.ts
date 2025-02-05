@@ -5,7 +5,7 @@ import { SCHEMA_VERSION, TaskProvider, TaskLocation, ExperimentTier, KnowledgeTy
 
 const appData: AppData = {
   version: SCHEMA_VERSION,
-  state: {
+  tableau: {
     journal: {
       [KnowledgeType.Chemistry]: 1,
       [KnowledgeType.Biology]: 0,

@@ -8,7 +8,7 @@ import { SCHEMA_VERSION } from './constants';
 import * as styles from './App.less';
 import MainView from './components/MainView';
 import TaskView from './components/TaskView';
-import StateView from './components/StateView';
+import TableauView from './components/TableauView';
 import AppContext from './context/AppContext';
 import ErrorBoundary from './ErrorBoundary';
 import migrateAppData from './utils/migrateAppData';
@@ -40,7 +40,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<MainView />} />
               <Route path="tasks/:taskId?" element={<TaskView />} />
-              <Route path="state" element={<StateView />} />
+              <Route path="tableau" element={<TableauView />} />
             </Routes>
           </BrowserRouter>
         </AppContext.Provider>
