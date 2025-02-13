@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
 import { KnowledgeType, IngredientType, OtherRewardType } from '../../constants';
 import { RewardSet } from '../../types';
@@ -7,15 +7,42 @@ import Ingredient from '../Ingredient';
 import OtherReward from '../OtherReward';
 import RewardsInputRow from './RewardsInputRow';
 import * as styles from './RewardsInput.less';
+import merge from '../../utils/merge';
+
+export enum RewardsInputType {
+  Knowledge,
+  Ingredients,
+  Others
+};
+
+type RewardsInputConfigValue = {
+  label?: string
+  hide?: boolean
+};
+
+type RewardsInputConfig = {
+  [RewardsInputType.Knowledge]?: RewardsInputConfigValue
+  [RewardsInputType.Ingredients]?: RewardsInputConfigValue
+  [RewardsInputType.Others]?: RewardsInputConfigValue
+};
 
 type RewardsInputProps = {
   onComplete?: (rewards: RewardSet) => any,
   onCancel?: () => any,
-  initialValue?: RewardSet
-}
+  initialValue?: RewardSet,
+  config?: RewardsInputConfig
+};
 
-export default function RewardsInput({ onComplete, onCancel, initialValue }: RewardsInputProps) {
+const DEFAULT_CONFIG: RewardsInputConfig = {
+  [RewardsInputType.Knowledge]: { label: 'Knowledge' },
+  [RewardsInputType.Ingredients]: { label: 'Ingredients' },
+  [RewardsInputType.Others]: { label: 'Others' }
+};
+
+export default function RewardsInput({ onComplete, onCancel, initialValue, config = {} }: RewardsInputProps) {
   const [rewards, setRewards] = useState<RewardSet>(initialValue || {});
+
+  const resolvedConfig = useMemo(() => merge(DEFAULT_CONFIG, config), [config]);
 
   function getOnChange(type: KnowledgeType | IngredientType | OtherRewardType) {
     return (value: number) => setRewards({ ...rewards, [type]: value })
@@ -27,54 +54,66 @@ export default function RewardsInput({ onComplete, onCancel, initialValue }: Rew
     onComplete?.(Object.fromEntries(entries));
   }
 
+  const {
+    [RewardsInputType.Knowledge]: knowledgeConfig,
+    [RewardsInputType.Ingredients]: ingredientsConfig,
+    [RewardsInputType.Others]: othersConfig,
+  } = resolvedConfig;
+
   return (
     <div className={styles.container}>
       <div>
         <button onClick={complete}>Save</button>
         <button onClick={onCancel}>Cancel</button>
       </div>
-      <div>
-        <div>Knowledge:</div>
-        <RewardsInputRow value={rewards[KnowledgeType.Chemistry]} onChange={getOnChange(KnowledgeType.Chemistry)}>
-          <Knowledge type={KnowledgeType.Chemistry} />
-        </RewardsInputRow>
-        <RewardsInputRow value={rewards[KnowledgeType.Biology]}  onChange={getOnChange(KnowledgeType.Biology)}>
-          <Knowledge type={KnowledgeType.Biology} />
-        </RewardsInputRow>
-        <RewardsInputRow value={rewards[KnowledgeType.Engineering]}  onChange={getOnChange(KnowledgeType.Engineering)}>
-          <Knowledge type={KnowledgeType.Engineering} />
-        </RewardsInputRow>
-        <RewardsInputRow value={rewards[KnowledgeType.Arcane]}  onChange={getOnChange(KnowledgeType.Arcane)}>
-          <Knowledge type={KnowledgeType.Arcane} />
-        </RewardsInputRow>
-      </div>
-      <div>
-        <div>Ingredients:</div>
-        <RewardsInputRow value={rewards[IngredientType.Chemical]}  onChange={getOnChange(IngredientType.Chemical)}>
-          <Ingredient type={IngredientType.Chemical} />
-        </RewardsInputRow>
-        <RewardsInputRow value={rewards[IngredientType.Animal]} onChange={getOnChange(IngredientType.Animal)}>
-          <Ingredient type={IngredientType.Animal} />
-        </RewardsInputRow>
-        <RewardsInputRow value={rewards[IngredientType.Gear]} onChange={getOnChange(IngredientType.Gear)}>
-          <Ingredient type={IngredientType.Gear} />
-        </RewardsInputRow>
-        <RewardsInputRow value={rewards[IngredientType.Body]} onChange={getOnChange(IngredientType.Body)}>
-          <Ingredient type={IngredientType.Body} />
-        </RewardsInputRow>
-      </div>
-      <div>
-        <div>Others:</div>
-        <RewardsInputRow value={rewards[OtherRewardType.Creepy]} onChange={getOnChange(OtherRewardType.Creepy)}>
-          <OtherReward type={OtherRewardType.Creepy} />
-        </RewardsInputRow>
-        <RewardsInputRow value={rewards[OtherRewardType.Insanity]} onChange={getOnChange(OtherRewardType.Insanity)}>
-          <OtherReward type={OtherRewardType.Insanity} />
-        </RewardsInputRow>
-        <RewardsInputRow value={rewards[OtherRewardType.Mob]} onChange={getOnChange(OtherRewardType.Mob)}>
-          <OtherReward type={OtherRewardType.Mob} />
-        </RewardsInputRow>
-      </div>
+      {!!knowledgeConfig && !knowledgeConfig.hide && (
+        <div>
+          {!!knowledgeConfig.label && (<div>{knowledgeConfig.label}:</div>)}
+          <RewardsInputRow value={rewards[KnowledgeType.Chemistry]} onChange={getOnChange(KnowledgeType.Chemistry)}>
+            <Knowledge type={KnowledgeType.Chemistry} />
+          </RewardsInputRow>
+          <RewardsInputRow value={rewards[KnowledgeType.Biology]}  onChange={getOnChange(KnowledgeType.Biology)}>
+            <Knowledge type={KnowledgeType.Biology} />
+          </RewardsInputRow>
+          <RewardsInputRow value={rewards[KnowledgeType.Engineering]}  onChange={getOnChange(KnowledgeType.Engineering)}>
+            <Knowledge type={KnowledgeType.Engineering} />
+          </RewardsInputRow>
+          <RewardsInputRow value={rewards[KnowledgeType.Arcane]}  onChange={getOnChange(KnowledgeType.Arcane)}>
+            <Knowledge type={KnowledgeType.Arcane} />
+          </RewardsInputRow>
+        </div>
+      )}
+      {!!ingredientsConfig && !ingredientsConfig.hide && (
+        <div>
+          {!!ingredientsConfig.label && (<div>{ingredientsConfig.label}:</div>)}
+          <RewardsInputRow value={rewards[IngredientType.Chemical]}  onChange={getOnChange(IngredientType.Chemical)}>
+            <Ingredient type={IngredientType.Chemical} />
+          </RewardsInputRow>
+          <RewardsInputRow value={rewards[IngredientType.Animal]} onChange={getOnChange(IngredientType.Animal)}>
+            <Ingredient type={IngredientType.Animal} />
+          </RewardsInputRow>
+          <RewardsInputRow value={rewards[IngredientType.Gear]} onChange={getOnChange(IngredientType.Gear)}>
+            <Ingredient type={IngredientType.Gear} />
+          </RewardsInputRow>
+          <RewardsInputRow value={rewards[IngredientType.Body]} onChange={getOnChange(IngredientType.Body)}>
+            <Ingredient type={IngredientType.Body} />
+          </RewardsInputRow>
+        </div>
+      )}
+      {!!othersConfig && !othersConfig.hide && (
+        <div>
+          {!!othersConfig.label && (<div>{othersConfig.label}:</div>)}
+          <RewardsInputRow value={rewards[OtherRewardType.Creepy]} onChange={getOnChange(OtherRewardType.Creepy)}>
+            <OtherReward type={OtherRewardType.Creepy} />
+          </RewardsInputRow>
+          <RewardsInputRow value={rewards[OtherRewardType.Insanity]} onChange={getOnChange(OtherRewardType.Insanity)}>
+            <OtherReward type={OtherRewardType.Insanity} />
+          </RewardsInputRow>
+          <RewardsInputRow value={rewards[OtherRewardType.Mob]} onChange={getOnChange(OtherRewardType.Mob)}>
+            <OtherReward type={OtherRewardType.Mob} />
+          </RewardsInputRow>
+        </div>
+      )}
       <div>
         <button onClick={complete}>Save</button>
         <button onClick={onCancel}>Cancel</button>

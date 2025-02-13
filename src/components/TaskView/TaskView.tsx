@@ -10,7 +10,11 @@ import Actions from '../../reducer/actions';
 import Icon from '../Icon';
 import RewardsList from '../RewardsList';
 import { RewardSet } from '../../types';
-import RewardsInput from '../RewardsInput';
+import RewardsInput, { RewardsInputType } from '../RewardsInput';
+
+const REQUIREMENTS_CONFIG = {
+  [RewardsInputType.Others]: { hide: true } 
+};
 
 export default function TaskView() {
   const { taskId } = useParams();
@@ -154,7 +158,7 @@ export default function TaskView() {
         Requirements: {!editingRequirements && <Icon type={Icon.TYPE.EDIT} onClick={toggleEditRequirements} />}
         <div className={styles.rewardsList}>
           {!!editingRequirements ? (
-            <RewardsInput onComplete={saveRequirements} onCancel={toggleEditRequirements} initialValue={requirements} />
+            <RewardsInput onComplete={saveRequirements} onCancel={toggleEditRequirements} initialValue={requirements} config={REQUIREMENTS_CONFIG} />
           ) : (
             <RewardsList rewards={requirements} />
           )}
