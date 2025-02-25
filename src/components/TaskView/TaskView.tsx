@@ -4,16 +4,13 @@ import { v4 as uuid } from 'uuid';
 
 import AppContext from '../../context/AppContext';
 import useTask from '../../hooks/useTask';
-import { TaskLocation, TaskProvider } from '../../constants';
+import { TaskLocation, TaskProvider, RewardsType } from '../../constants';
 import * as styles from './TaskView.less';
 import Actions from '../../reducer/actions';
-import Icon from '../Icon';
-import RewardsList from '../RewardsList';
-import { RewardSet } from '../../types';
-import RewardsInput, { RewardsInputType } from '../RewardsInput';
+import EditRewards from '../EditRewards';
 
 const REQUIREMENTS_CONFIG = {
-  [RewardsInputType.Others]: { hide: true } 
+  [RewardsType.Others]: { hide: true } 
 };
 
 export default function TaskView() {
@@ -33,8 +30,7 @@ export default function TaskView() {
   const [requirements, setRequirements] = useState(sourceTask?.requirements);
   const [rewards, setRewards] = useState(sourceTask?.rewards);
 
-  const [editingRequirements, setEditingRequirements] = useState(false);
-  const [editingRewards, setEditingRewards] = useState(false);
+  const [editingRewardsFields, setEditingRewardsFields] = useState<string[]>([]);
 
   const title = `${!!editTask ? 'Edit' : 'Add'} Task`;
 
@@ -79,22 +75,14 @@ export default function TaskView() {
     setNotes(e.target.value);
   }
 
-  function toggleEditRequirements() {
-    setEditingRequirements(!editingRequirements);
-  }
-
-  function toggleEditRewards() {
-    setEditingRewards(!editingRewards);
-  }
-
-  function saveRequirements(newRequirements: RewardSet) {
-    setRequirements(newRequirements);
-    setEditingRequirements(false);
-  }
-
-  function saveRewards(newRewards: RewardSet) {
-    setRewards(newRewards);
-    setEditingRewards(false);
+  function getOnEditStateChange(name: string) {
+    return (isEditing: boolean) => {
+      if (isEditing) {
+        setEditingRewardsFields(Array.from(new Set(editingRewardsFields).add(name)));
+      } else {
+        setEditingRewardsFields(editingRewardsFields.filter(f => f !== name));
+      }
+    };
   }
 
   return (
@@ -154,27 +142,20 @@ export default function TaskView() {
           <textarea rows={3} value={notes} onChange={onChangeNotes} />
         </label>
       </div>
-      <div>
-        Requirements: {!editingRequirements && <Icon type={Icon.TYPE.EDIT} onClick={toggleEditRequirements} />}
-        <div className={styles.rewardsList}>
-          {!!editingRequirements ? (
-            <RewardsInput onComplete={saveRequirements} onCancel={toggleEditRequirements} initialValue={requirements} config={REQUIREMENTS_CONFIG} />
-          ) : (
-            <RewardsList rewards={requirements} />
-          )}
-        </div>
-      </div>
-      <div>
-        Rewards: {!editingRewards && <Icon type={Icon.TYPE.EDIT} onClick={toggleEditRewards} />}
-        <div className={styles.rewardsList}>
-          {!!editingRewards ? (
-            <RewardsInput onComplete={saveRewards} onCancel={toggleEditRewards} initialValue={rewards} />
-          ) : (
-            <RewardsList rewards={rewards} />
-          )}
-        </div>
-      </div>
-      {(!editingRequirements && !editingRewards) && (
+      <EditRewards
+        label="Requirements"
+        rewards={requirements}
+        onSave={setRequirements}
+        onEditStateChange={getOnEditStateChange('requirements')}
+        config={REQUIREMENTS_CONFIG}
+      />
+      <EditRewards
+        label="Rewards"
+        rewards={rewards}
+        onSave={setRewards}
+        onEditStateChange={getOnEditStateChange('rewards')}
+      />
+      {!editingRewardsFields.length && (
         <div className={styles.buttons}>
           <button onClick={save}>Save</button>
           <button onClick={() => navigate('/')}>Cancel</button>

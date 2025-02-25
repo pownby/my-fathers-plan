@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 
-import { KnowledgeType, IngredientType, OtherRewardType } from '../../constants';
+import { KnowledgeType, IngredientType, OtherRewardType, RewardsType } from '../../constants';
 import { RewardSet } from '../../types';
 import Knowledge from '../Knowledge';
 import Ingredient from '../Ingredient';
@@ -9,21 +9,15 @@ import RewardsInputRow from './RewardsInputRow';
 import * as styles from './RewardsInput.less';
 import merge from '../../utils/merge';
 
-export enum RewardsInputType {
-  Knowledge,
-  Ingredients,
-  Others
-};
-
 type RewardsInputConfigValue = {
   label?: string
   hide?: boolean
 };
 
-type RewardsInputConfig = {
-  [RewardsInputType.Knowledge]?: RewardsInputConfigValue
-  [RewardsInputType.Ingredients]?: RewardsInputConfigValue
-  [RewardsInputType.Others]?: RewardsInputConfigValue
+export type RewardsInputConfig = {
+  [RewardsType.Knowledge]?: RewardsInputConfigValue
+  [RewardsType.Ingredients]?: RewardsInputConfigValue
+  [RewardsType.Others]?: RewardsInputConfigValue
 };
 
 type RewardsInputProps = {
@@ -34,9 +28,9 @@ type RewardsInputProps = {
 };
 
 const DEFAULT_CONFIG: RewardsInputConfig = {
-  [RewardsInputType.Knowledge]: { label: 'Knowledge' },
-  [RewardsInputType.Ingredients]: { label: 'Ingredients' },
-  [RewardsInputType.Others]: { label: 'Others' }
+  [RewardsType.Knowledge]: { label: 'Knowledge' },
+  [RewardsType.Ingredients]: { label: 'Ingredients' },
+  [RewardsType.Others]: { label: 'Others' }
 };
 
 export default function RewardsInput({ onComplete, onCancel, initialValue, config = {} }: RewardsInputProps) {
@@ -55,9 +49,9 @@ export default function RewardsInput({ onComplete, onCancel, initialValue, confi
   }
 
   const {
-    [RewardsInputType.Knowledge]: knowledgeConfig,
-    [RewardsInputType.Ingredients]: ingredientsConfig,
-    [RewardsInputType.Others]: othersConfig,
+    [RewardsType.Knowledge]: knowledgeConfig,
+    [RewardsType.Ingredients]: ingredientsConfig,
+    [RewardsType.Others]: othersConfig,
   } = resolvedConfig;
 
   return (

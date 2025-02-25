@@ -6,9 +6,9 @@ import { IngredientType } from '../../constants';
 import * as styles from './Ingredient.less';
 
 const ICON_MAP = {
-  [IngredientType.Chemical]: Icon.TYPE.ATOM,
+  [IngredientType.Chemical]: Icon.TYPE.FLASK,
   [IngredientType.Animal]: Icon.TYPE.PAW,
-  [IngredientType.Gear]: Icon.TYPE.BOLT,
+  [IngredientType.Gear]: Icon.TYPE.COG,
   [IngredientType.Body]: Icon.TYPE.SKULL
 };
 

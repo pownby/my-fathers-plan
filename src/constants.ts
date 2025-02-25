@@ -38,3 +38,9 @@ export enum OtherRewardType {
   Insanity = 'o_insanity',
   Mob = 'o_mob'
 };
+
+export enum RewardsType {
+  Knowledge,
+  Ingredients,
+  Others
+};

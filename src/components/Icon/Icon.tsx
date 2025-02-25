@@ -20,14 +20,13 @@ const TYPE = {
   ARROW_CIRCLE_DOWN: 'arrow-circle-down',
   BRAIN: 'brain',
   GRIMACE: 'grimace',
-  TIMES: 'times'
+  TIMES: 'times',
+  WINE: 'wine-bottle',
+  XBONES: 'skull-crossbones',
+  SPIDER: 'spider',
+  FLASK: 'flask'
   /*
-  Does not work (probably need a newer version):
-  * wine-bottle
-  * skull-crossbones
-  * spider
-   
-  More: https://fontawesome.com/v5/search?q=arrow&o=r&m=free
+  More: https://fontawesome.com/search?o=r&s=solid
   */
 };
 
@@ -65,4 +64,8 @@ Icon.PALETTE =
     <Icon type={TYPE.BRAIN}></Icon>
     <Icon type={TYPE.GRIMACE}></Icon>
     <Icon type={TYPE.TIMES}></Icon>
+    <Icon type={TYPE.WINE}></Icon>
+    <Icon type={TYPE.XBONES}></Icon>
+    <Icon type={TYPE.SPIDER}></Icon>
+    <Icon type={TYPE.FLASK}></Icon>
   </>;
