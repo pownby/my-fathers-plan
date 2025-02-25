@@ -70,6 +70,13 @@ export default function TableauView() {
           onEditStateChange={getOnEditStateChange('ingredients')}
           config={INGREDIENTS_CONFIG}
         />
+        <EditRewards
+          label="Knowledge"
+          rewards={knowledge}
+          onSave={setKnowledge}
+          onEditStateChange={getOnEditStateChange('knowledge')}
+          config={KNOWLEDGE_CONFIG}
+        />
         {!editingFields.length && (
           <div className={styles.buttons}>
             <button onClick={save}>Save</button>
