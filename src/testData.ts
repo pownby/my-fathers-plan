@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
 import type { AppData } from "./types";
-import { SCHEMA_VERSION, TaskProvider, TaskLocation, ExperimentTier, KnowledgeType, IngredientType, OtherRewardType } from "./constants";
+import { SCHEMA_VERSION, TaskProvider, TaskLocation, ExperimentType, KnowledgeType, IngredientType, DetrimentType } from "./constants";
 
 const appData: AppData = {
   version: SCHEMA_VERSION,
@@ -24,15 +24,15 @@ const appData: AppData = {
       [KnowledgeType.Arcane]: 1
     },
     experiments: {
-      [ExperimentTier.A]: 2,
-      [ExperimentTier.B]: 1
+      [ExperimentType.A]: 2,
+      [ExperimentType.B]: 1
     }
   },
   tasks: [
     {
       id: uuid(),
       name: 'Test Task',
-      tier: ExperimentTier.A,
+      tier: ExperimentType.A,
       providers: [TaskProvider.Servant],
       location: TaskLocation.Town,
       notes: 'Some notes',
@@ -41,8 +41,8 @@ const appData: AppData = {
         [IngredientType.Animal]: 2
       },
       rewards: {
-        [OtherRewardType.Creepy]: 1,
-        [OtherRewardType.Insanity]: 1,
+        [DetrimentType.Creepy]: 1,
+        [DetrimentType.Insanity]: 1,
         [KnowledgeType.Biology]: 1,
         [IngredientType.Animal]: 1
       }
@@ -50,7 +50,7 @@ const appData: AppData = {
     {
       id: uuid(),
       name: 'A cooler task',
-      tier: ExperimentTier.B,
+      tier: ExperimentType.B,
       providers: [TaskProvider.Caretaker, TaskProvider.Self],
       location: TaskLocation.Estate,
       requirements: {
@@ -59,8 +59,8 @@ const appData: AppData = {
         [IngredientType.Chemical]: 1
       },
       rewards: {
-        [OtherRewardType.Mob]: 1,
-        [OtherRewardType.Creepy]: 2,
+        [DetrimentType.Mob]: 1,
+        [DetrimentType.Creepy]: 2,
       }
     }
   ]

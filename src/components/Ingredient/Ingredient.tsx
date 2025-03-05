@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Resource from '../Resource';
+import Asset from '../Asset';
 import Icon from '../Icon';
 import { IngredientType } from '../../constants';
 import * as styles from './Ingredient.less';
@@ -19,8 +19,8 @@ type IngredientProps = {
 
 export default function Ingredient({ type = IngredientType.Chemical, label }: IngredientProps) {
   return (
-    <Resource label={label}>
+    <Asset label={label}>
       <Icon type={ICON_MAP[type]} className={styles.ingredient} />
-    </Resource>
+    </Asset>
   );
 }

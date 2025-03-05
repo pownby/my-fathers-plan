@@ -1,16 +1,16 @@
 import React, { useMemo } from 'react';
 
-import { RewardSet } from '../../types';
-import { KnowledgeType, IngredientType, OtherRewardType } from '../../constants';
+import { AssetSet } from '../../types';
+import { KnowledgeType, IngredientType, DetrimentType } from '../../constants';
 import Knowledge from '../Knowledge';
 import Ingredient from '../Ingredient';
-import OtherReward from '../OtherReward';
-import sortRewardsEntries from '../../utils/sortRewardsEntries';
+import Detriment from '../Detriment';
+import sortAssetsEntries from '../../utils/sortAssetsEntries';
 
-import * as styles from './RewardsList.less';
+import * as styles from './InlineAssetList.less';
 
-type RewardsListProps = {
-  rewards: RewardSet
+type InlineAssetListProps = {
+  assets: AssetSet
 };
 
 function isKnowledgeType(type: string) {
@@ -21,27 +21,27 @@ function isIngredientType(type: string) {
   return (Object.values(IngredientType) as string[]).includes(type);
 }
 
-function isOtherRewardType(type: string) {
-  return (Object.values(OtherRewardType) as string[]).includes(type);
+function isDetrimentType(type: string) {
+  return (Object.values(DetrimentType) as string[]).includes(type);
 }
 
-export default function RewardsList({ rewards = {} }: RewardsListProps) {
-  const innerNodes = useMemo(() => Object.entries(rewards)
+export default function InlineAssetList({ assets = {} }: InlineAssetListProps) {
+  const innerNodes = useMemo(() => Object.entries(assets)
     .filter(([key, value]) => !!value)
-    .sort(sortRewardsEntries)
+    .sort(sortAssetsEntries)
     .map(([key, value]) => {
       if (isKnowledgeType(key)) {
         return <span>{value}x <Knowledge type={key as KnowledgeType} /></span>;
       } else if (isIngredientType(key)) {
         return <span>{value}x <Ingredient type={key as IngredientType} /></span>;
-      } else if (isOtherRewardType(key)) {
-        return <span>{value}x <OtherReward type={key as OtherRewardType} /></span>
+      } else if (isDetrimentType(key)) {
+        return <span>{value}x <Detriment type={key as DetrimentType} /></span>
       }
       return `${value}x ${key}`;
-    }), [rewards]);
+    }), [assets]);
 
   return (
-    <span className={styles.rewardsList}>
+    <span className={styles.inlineAssetList}>
       {!!innerNodes?.length ? innerNodes.map((node, i) => (
         <React.Fragment key={i}>
           {node}

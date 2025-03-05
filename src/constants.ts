@@ -12,11 +12,11 @@ export enum TaskLocation {
   Estate = 'Estate'
 };
 
-export enum ExperimentTier {
-  A = 'A',
-  B = 'B',
-  C = 'C',
-  D = 'D'
+export enum ExperimentType {
+  A = 'exp_A',
+  B = 'exp_B',
+  C = 'exp_C',
+  D = 'exp_D'
 };
 
 export enum IngredientType {
@@ -33,14 +33,15 @@ export enum KnowledgeType {
   Arcane = 'k_arc'
 };
 
-export enum OtherRewardType {
-  Creepy = 'o_creepy',
-  Insanity = 'o_insanity',
-  Mob = 'o_mob'
+export enum DetrimentType {
+  Creepy = 'd_creepy',
+  Insanity = 'd_insanity',
+  Mob = 'd_mob'
 };
 
-export enum RewardsType {
-  Knowledge,
-  Ingredients,
-  Others
+export enum AssetType {
+  Knowledge = 'a_know',
+  Ingredient = 'a_ing',
+  Experiment = 'a_exp',
+  Detriment = 'a_det'
 };

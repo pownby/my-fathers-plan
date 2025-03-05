@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 
 import * as styles from './EditRewards.less';
-import { RewardSet } from '../../types';
+import { AssetSet } from '../../types';
 import Icon from '../Icon';
 import RewardsInput, { RewardsInputConfig } from '../RewardsInput';
-import RewardsList from '../RewardsList';
+import RewardsList from '../InlineAssetList';
 
 type EditRewardsProps = {
   label: string,
-  rewards: RewardSet,
-  onSave: (newSet: RewardSet) => void,
+  rewards: AssetSet,
+  onSave: (newSet: AssetSet) => void,
   onEditStateChange?: (editing: boolean) => void,
   config?: RewardsInputConfig
 };
@@ -23,7 +23,7 @@ export default function EditRewards({ label, rewards, onSave, onEditStateChange,
     onEditStateChange?.(newIsEditing);
   }
 
-  function onCompleteInput(newSet: RewardSet) {
+  function onCompleteInput(newSet: AssetSet) {
     onSave(newSet);
     setIsEditing(false);
     onEditStateChange?.(false);
@@ -36,7 +36,7 @@ export default function EditRewards({ label, rewards, onSave, onEditStateChange,
         {!!isEditing ? (
           <RewardsInput onComplete={onCompleteInput} onCancel={toggleIsEditing} initialValue={rewards} config={config} />
         ) : (
-          <RewardsList rewards={rewards} />
+          <RewardsList assets={rewards} />
         )}
       </div>
     </div>

@@ -4,10 +4,11 @@ import { useNavigate } from "react-router";
 import AppContext from '../../context/AppContext';
 import Actions from '../../reducer/actions';
 import Icon from '../Icon';
-import ResourceList, { ResourceListType } from '../ResourceList';
+import AssetList from '../AssetList';
 import testData from '../../testData';
 import TaskList from '../TaskList';
 import * as styles from './MainView.less';
+import { AssetType } from '../../constants';
 
 const isDevMode = process.env.NODE_ENV === 'development';
 
@@ -49,10 +50,10 @@ export default function MainView() {
             <span className={styles.tableauTitle}>Tableau:</span> <Icon type={Icon.TYPE.EDIT} onClick={() => navigate('/tableau')} />
           </div>
           <div className={styles.tableauContainer}>
-            <ResourceList label="Journal" set={tableau.journal} type={ResourceListType.Knowledge} />
-            <ResourceList label="Ingredients" set={tableau.ingredients} type={ResourceListType.Ingredient} />
-            <ResourceList label="Knowledge" set={tableau.knowledge} type={ResourceListType.Knowledge} />
-            <ResourceList label="Experiments" set={tableau.experiments} type={ResourceListType.Experiment} />
+            <AssetList label="Journal" set={tableau.journal} type={AssetType.Knowledge} />
+            <AssetList label="Ingredients" set={tableau.ingredients} type={AssetType.Ingredient} />
+            <AssetList label="Knowledge" set={tableau.knowledge} type={AssetType.Knowledge} />
+            <AssetList label="Experiments" set={tableau.experiments} type={AssetType.Experiment} />
           </div>
         </>
       )}

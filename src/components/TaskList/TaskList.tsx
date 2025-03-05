@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 import { Task } from '../../types';
 import Icon from '../Icon';
-import RewardsList from '../RewardsList';
+import InlineAssetList from '../InlineAssetList';
 import AppContext from '../../context/AppContext';
 import Actions from '../../reducer/actions';
 import * as styles from './TaskList.less';
@@ -45,10 +45,10 @@ export default function TaskList({ tasks }: TaskListProps) {
               Location: {task.location}
             </div>}
             {!!task.requirements && <div>
-              Needs: <RewardsList rewards={task.requirements} />
+              Needs: <InlineAssetList assets={task.requirements} />
             </div>}
             {!!task.rewards && <div>
-              Gives: <RewardsList rewards={task.rewards} />
+              Gives: <InlineAssetList assets={task.rewards} />
             </div>}
             {!!task.notes && <div>
               Notes:

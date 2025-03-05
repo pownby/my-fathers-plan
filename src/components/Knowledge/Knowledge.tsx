@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Resource from '../Resource';
+import Asset from '../Asset';
 import * as styles from './Knowledge.less';
 import { KnowledgeType } from '../../constants';
 
@@ -17,7 +17,7 @@ type KnowledgeProps = {
 };
 
 export default function Knowledge({ type = KnowledgeType.Chemistry, label }: KnowledgeProps) {
-  return <Resource label={label}>
+  return <Asset label={label}>
     <span className={`${styles.cube} ${COLOR_MAP[type]}`}></span>
-  </Resource>;
+  </Asset>;
 }

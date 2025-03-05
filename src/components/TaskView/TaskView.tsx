@@ -4,13 +4,13 @@ import { v4 as uuid } from 'uuid';
 
 import AppContext from '../../context/AppContext';
 import useTask from '../../hooks/useTask';
-import { TaskLocation, TaskProvider, RewardsType } from '../../constants';
+import { TaskLocation, TaskProvider, AssetType } from '../../constants';
 import * as styles from './TaskView.less';
 import Actions from '../../reducer/actions';
 import EditRewards from '../EditRewards';
 
 const REQUIREMENTS_CONFIG = {
-  [RewardsType.Others]: { hide: true } 
+  [AssetType.Detriment]: { hide: true } 
 };
 
 export default function TaskView() {

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import * as styles from './Resource.less';
+import * as styles from './Asset.less';
 
-type ResourceProps = {
+type AssetProps = {
   children?: React.ReactNode,
   label?: string | number,
 };
 
-export default function Resource({ children, label }: ResourceProps) {
+export default function Asset({ children, label }: AssetProps) {
   return (
     <span className={styles.container}>
       {children}

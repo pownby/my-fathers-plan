@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from 'react';
 
-import { KnowledgeType, IngredientType, OtherRewardType, RewardsType } from '../../constants';
-import { RewardSet } from '../../types';
+import { KnowledgeType, IngredientType, DetrimentType, AssetType } from '../../constants';
+import { AssetSet } from '../../types';
 import Knowledge from '../Knowledge';
 import Ingredient from '../Ingredient';
-import OtherReward from '../OtherReward';
+import Detriment from '../Detriment';
 import RewardsInputRow from './RewardsInputRow';
 import * as styles from './RewardsInput.less';
 import merge from '../../utils/merge';
@@ -15,30 +15,30 @@ type RewardsInputConfigValue = {
 };
 
 export type RewardsInputConfig = {
-  [RewardsType.Knowledge]?: RewardsInputConfigValue
-  [RewardsType.Ingredients]?: RewardsInputConfigValue
-  [RewardsType.Others]?: RewardsInputConfigValue
+  [AssetType.Knowledge]?: RewardsInputConfigValue
+  [AssetType.Ingredient]?: RewardsInputConfigValue
+  [AssetType.Detriment]?: RewardsInputConfigValue
 };
 
 type RewardsInputProps = {
-  onComplete?: (rewards: RewardSet) => any,
+  onComplete?: (rewards: AssetSet) => any,
   onCancel?: () => any,
-  initialValue?: RewardSet,
+  initialValue?: AssetSet,
   config?: RewardsInputConfig
 };
 
 const DEFAULT_CONFIG: RewardsInputConfig = {
-  [RewardsType.Knowledge]: { label: 'Knowledge' },
-  [RewardsType.Ingredients]: { label: 'Ingredients' },
-  [RewardsType.Others]: { label: 'Others' }
+  [AssetType.Knowledge]: { label: 'Knowledge' },
+  [AssetType.Ingredient]: { label: 'Ingredients' },
+  [AssetType.Detriment]: { label: 'Others' }
 };
 
 export default function RewardsInput({ onComplete, onCancel, initialValue, config = {} }: RewardsInputProps) {
-  const [rewards, setRewards] = useState<RewardSet>(initialValue || {});
+  const [rewards, setRewards] = useState<AssetSet>(initialValue || {});
 
   const resolvedConfig = useMemo(() => merge(DEFAULT_CONFIG, config), [config]);
 
-  function getOnChange(type: KnowledgeType | IngredientType | OtherRewardType) {
+  function getOnChange(type: KnowledgeType | IngredientType | DetrimentType) {
     return (value: number) => setRewards({ ...rewards, [type]: value })
   }
 
@@ -49,9 +49,9 @@ export default function RewardsInput({ onComplete, onCancel, initialValue, confi
   }
 
   const {
-    [RewardsType.Knowledge]: knowledgeConfig,
-    [RewardsType.Ingredients]: ingredientsConfig,
-    [RewardsType.Others]: othersConfig,
+    [AssetType.Knowledge]: knowledgeConfig,
+    [AssetType.Ingredient]: ingredientsConfig,
+    [AssetType.Detriment]: detrimentsConfig,
   } = resolvedConfig;
 
   return (
@@ -94,17 +94,17 @@ export default function RewardsInput({ onComplete, onCancel, initialValue, confi
           </RewardsInputRow>
         </div>
       )}
-      {!!othersConfig && !othersConfig.hide && (
+      {!!detrimentsConfig && !detrimentsConfig.hide && (
         <div>
-          {!!othersConfig.label && (<div>{othersConfig.label}:</div>)}
-          <RewardsInputRow value={rewards[OtherRewardType.Creepy]} onChange={getOnChange(OtherRewardType.Creepy)}>
-            <OtherReward type={OtherRewardType.Creepy} />
+          {!!detrimentsConfig.label && (<div>{detrimentsConfig.label}:</div>)}
+          <RewardsInputRow value={rewards[DetrimentType.Creepy]} onChange={getOnChange(DetrimentType.Creepy)}>
+            <Detriment type={DetrimentType.Creepy} />
           </RewardsInputRow>
-          <RewardsInputRow value={rewards[OtherRewardType.Insanity]} onChange={getOnChange(OtherRewardType.Insanity)}>
-            <OtherReward type={OtherRewardType.Insanity} />
+          <RewardsInputRow value={rewards[DetrimentType.Insanity]} onChange={getOnChange(DetrimentType.Insanity)}>
+            <Detriment type={DetrimentType.Insanity} />
           </RewardsInputRow>
-          <RewardsInputRow value={rewards[OtherRewardType.Mob]} onChange={getOnChange(OtherRewardType.Mob)}>
-            <OtherReward type={OtherRewardType.Mob} />
+          <RewardsInputRow value={rewards[DetrimentType.Mob]} onChange={getOnChange(DetrimentType.Mob)}>
+            <Detriment type={DetrimentType.Mob} />
           </RewardsInputRow>
         </div>
       )}

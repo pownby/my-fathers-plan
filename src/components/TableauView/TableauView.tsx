@@ -5,18 +5,18 @@ import * as styles from './TableauView.less';
 import AppContext from '../../context/AppContext';
 import Actions from '../../reducer/actions';
 import EditRewards from '../EditRewards';
-import { RewardsType } from '../../constants';
+import { AssetType } from '../../constants';
 
 const KNOWLEDGE_CONFIG = {
-  [RewardsType.Knowledge]: { label: '' },
-  [RewardsType.Ingredients]: { hide: true },
-  [RewardsType.Others]: { hide: true } 
+  [AssetType.Knowledge]: { label: '' },
+  [AssetType.Ingredient]: { hide: true },
+  [AssetType.Detriment]: { hide: true } 
 };
 
 const INGREDIENTS_CONFIG = {
-  [RewardsType.Knowledge]: { hide: true  },
-  [RewardsType.Ingredients]: { label: '' },
-  [RewardsType.Others]: { hide: true } 
+  [AssetType.Knowledge]: { hide: true  },
+  [AssetType.Ingredient]: { label: '' },
+  [AssetType.Detriment]: { hide: true } 
 };
 
 export default function TableauView() {

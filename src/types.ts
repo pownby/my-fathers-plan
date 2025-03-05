@@ -1,4 +1,4 @@
-import { TaskProvider, TaskLocation, ExperimentTier, KnowledgeType, IngredientType, OtherRewardType } from "./constants";
+import { TaskProvider, TaskLocation, ExperimentType, KnowledgeType, IngredientType, DetrimentType } from "./constants";
 import Actions from "./reducer/actions";
 
 export type KnowledgeSet = {
@@ -16,29 +16,29 @@ export type IngredientSet = {
 };
 
 export type ExperimentSet = {
-  [ExperimentTier.A]?: number,
-  [ExperimentTier.B]?: number,
-  [ExperimentTier.C]?: number,
-  [ExperimentTier.D]?: number
+  [ExperimentType.A]?: number,
+  [ExperimentType.B]?: number,
+  [ExperimentType.C]?: number,
+  [ExperimentType.D]?: number
 };
 
-export type OtherRewardSet = {
-  [OtherRewardType.Creepy]?: number,
-  [OtherRewardType.Insanity]?: number,
-  [OtherRewardType.Mob]?: number,
+export type DetrimentSet = {
+  [DetrimentType.Creepy]?: number,
+  [DetrimentType.Insanity]?: number,
+  [DetrimentType.Mob]?: number,
 };
 
-export type RewardSet = KnowledgeSet & IngredientSet & OtherRewardSet;
+export type AssetSet = KnowledgeSet & IngredientSet & DetrimentSet & ExperimentSet;
 
 export type Task = {
   id: string,
   name?: string,
-  tier?: ExperimentTier,
+  tier?: ExperimentType,
   providers?: TaskProvider[],
   location?: TaskLocation | null,
   notes?: string,
   requirements?: KnowledgeSet & IngredientSet,
-  rewards?: RewardSet,
+  rewards?: KnowledgeSet & IngredientSet & DetrimentSet,
 };
 
 export type TableauState = {
