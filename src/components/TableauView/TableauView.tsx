@@ -21,6 +21,12 @@ const INGREDIENTS_CONFIG = {
   [AssetType.Experiment]: { hide: true }
 };
 
+const EXPERIMENTS_CONFIG = {
+  [AssetType.Knowledge]: { hide: true  },
+  [AssetType.Ingredient]: { hide: true },
+  [AssetType.Detriment]: { hide: true },
+};
+
 export default function TableauView() {
   const { dispatch, appState: { tableau: appState } } = useContext(AppContext);
   const navigate = useNavigate();
@@ -78,6 +84,13 @@ export default function TableauView() {
           onSave={setKnowledge}
           onEditStateChange={getOnEditStateChange('knowledge')}
           config={KNOWLEDGE_CONFIG}
+        />
+        <EditAssets
+          label="Experiments"
+          assets={experiments}
+          onSave={setExperiments}
+          onEditStateChange={getOnEditStateChange('experiments')}
+          config={EXPERIMENTS_CONFIG}
         />
         {!editingFields.length && (
           <div className={styles.buttons}>

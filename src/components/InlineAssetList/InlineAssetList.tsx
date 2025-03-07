@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
 
 import { AssetSet } from '../../types';
-import { KnowledgeType, IngredientType, DetrimentType } from '../../constants';
+import { KnowledgeType, IngredientType, DetrimentType, ExperimentType } from '../../constants';
 import Knowledge from '../Knowledge';
 import Ingredient from '../Ingredient';
 import Detriment from '../Detriment';
+import Experiment from '../Experiment';
 import sortAssetsEntries from '../../utils/sortAssetsEntries';
 
 import * as styles from './InlineAssetList.less';
@@ -25,6 +26,10 @@ function isDetrimentType(type: string) {
   return (Object.values(DetrimentType) as string[]).includes(type);
 }
 
+function isExperimentType(type: string) {
+  return (Object.values(ExperimentType) as string[]).includes(type);
+}
+
 export default function InlineAssetList({ assets = {} }: InlineAssetListProps) {
   const innerNodes = useMemo(() => Object.entries(assets)
     .filter(([key, value]) => !!value)
@@ -36,6 +41,8 @@ export default function InlineAssetList({ assets = {} }: InlineAssetListProps) {
         return <span>{value}x <Ingredient type={key as IngredientType} /></span>;
       } else if (isDetrimentType(key)) {
         return <span>{value}x <Detriment type={key as DetrimentType} /></span>
+      } else if (isExperimentType(key)) {
+        return <span>{value}x <Experiment type={key as ExperimentType} /></span>
       }
       return `${value}x ${key}`;
     }), [assets]);
