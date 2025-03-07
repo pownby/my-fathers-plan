@@ -4,19 +4,21 @@ import { useNavigate } from "react-router";
 import * as styles from './TableauView.less';
 import AppContext from '../../context/AppContext';
 import Actions from '../../reducer/actions';
-import EditRewards from '../EditRewards';
+import EditAssets from '../EditAssets';
 import { AssetType } from '../../constants';
 
 const KNOWLEDGE_CONFIG = {
   [AssetType.Knowledge]: { label: '' },
   [AssetType.Ingredient]: { hide: true },
-  [AssetType.Detriment]: { hide: true } 
+  [AssetType.Detriment]: { hide: true },
+  [AssetType.Experiment]: { hide: true }
 };
 
 const INGREDIENTS_CONFIG = {
   [AssetType.Knowledge]: { hide: true  },
   [AssetType.Ingredient]: { label: '' },
-  [AssetType.Detriment]: { hide: true } 
+  [AssetType.Detriment]: { hide: true },
+  [AssetType.Experiment]: { hide: true }
 };
 
 export default function TableauView() {
@@ -56,23 +58,23 @@ export default function TableauView() {
   return (
       <div className={styles.container}>
         <div className={styles.tableauTitle}>Tableau</div>
-        <EditRewards
+        <EditAssets
           label="Journal"
-          rewards={journal}
+          assets={journal}
           onSave={setJournal}
           onEditStateChange={getOnEditStateChange('journal')}
           config={KNOWLEDGE_CONFIG}
         />
-        <EditRewards
+        <EditAssets
           label="Ingredients"
-          rewards={ingredients}
+          assets={ingredients}
           onSave={setIngredients}
           onEditStateChange={getOnEditStateChange('ingredients')}
           config={INGREDIENTS_CONFIG}
         />
-        <EditRewards
+        <EditAssets
           label="Knowledge"
-          rewards={knowledge}
+          assets={knowledge}
           onSave={setKnowledge}
           onEditStateChange={getOnEditStateChange('knowledge')}
           config={KNOWLEDGE_CONFIG}

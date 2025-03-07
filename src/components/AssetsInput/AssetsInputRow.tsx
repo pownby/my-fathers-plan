@@ -1,14 +1,14 @@
 import React from 'react';
 
-import * as styles from './RewardsInput.less';
+import * as styles from './AssetsInput.less';
 
-type RewardsInputRowProps = {
+type AssetsInputRowProps = {
   children?: React.ReactNode,
   onChange?: (value: number) => any,
   value?: number
 };
 
-export default function RewardsInputRow({ children, onChange, value = 0 }: RewardsInputRowProps) {
+export default function AssetsInputRow({ children, onChange, value = 0 }: AssetsInputRowProps) {
   function innerOnChange(e: any) {
     onChange(Number(e?.target?.value));
   }

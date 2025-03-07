@@ -7,10 +7,15 @@ import useTask from '../../hooks/useTask';
 import { TaskLocation, TaskProvider, AssetType } from '../../constants';
 import * as styles from './TaskView.less';
 import Actions from '../../reducer/actions';
-import EditRewards from '../EditRewards';
+import EditAssets from '../EditAssets';
 
 const REQUIREMENTS_CONFIG = {
-  [AssetType.Detriment]: { hide: true } 
+  [AssetType.Detriment]: { hide: true },
+  [AssetType.Experiment]: { hide: true }
+};
+
+const REWARDS_CONFIG = {
+  [AssetType.Experiment]: { hide: true }
 };
 
 export default function TaskView() {
@@ -30,7 +35,7 @@ export default function TaskView() {
   const [requirements, setRequirements] = useState(sourceTask?.requirements);
   const [rewards, setRewards] = useState(sourceTask?.rewards);
 
-  const [editingRewardsFields, setEditingRewardsFields] = useState<string[]>([]);
+  const [editingAssetsFields, setEditingAssetsFields] = useState<string[]>([]);
 
   const title = `${!!editTask ? 'Edit' : 'Add'} Task`;
 
@@ -78,9 +83,9 @@ export default function TaskView() {
   function getOnEditStateChange(name: string) {
     return (isEditing: boolean) => {
       if (isEditing) {
-        setEditingRewardsFields(Array.from(new Set(editingRewardsFields).add(name)));
+        setEditingAssetsFields(Array.from(new Set(editingAssetsFields).add(name)));
       } else {
-        setEditingRewardsFields(editingRewardsFields.filter(f => f !== name));
+        setEditingAssetsFields(editingAssetsFields.filter(f => f !== name));
       }
     };
   }
@@ -108,7 +113,7 @@ export default function TaskView() {
             {TaskProvider.Servant}
           </label>
         </div>
-        <div>
+        <div> 
           <input type="checkbox" id="requires_caretaker" value={TaskProvider.Caretaker} checked={providers.includes(TaskProvider.Caretaker)} onChange={onChangeProvider} />
           <label htmlFor="requires_caretaker">
             {TaskProvider.Caretaker}
@@ -142,20 +147,21 @@ export default function TaskView() {
           <textarea rows={3} value={notes} onChange={onChangeNotes} />
         </label>
       </div>
-      <EditRewards
+      <EditAssets
         label="Requirements"
-        rewards={requirements}
+        assets={requirements}
         onSave={setRequirements}
         onEditStateChange={getOnEditStateChange('requirements')}
         config={REQUIREMENTS_CONFIG}
       />
-      <EditRewards
+      <EditAssets
         label="Rewards"
-        rewards={rewards}
+        assets={rewards}
         onSave={setRewards}
         onEditStateChange={getOnEditStateChange('rewards')}
+        config={REWARDS_CONFIG}
       />
-      {!editingRewardsFields.length && (
+      {!editingAssetsFields.length && (
         <div className={styles.buttons}>
           <button onClick={save}>Save</button>
           <button onClick={() => navigate('/')}>Cancel</button>
