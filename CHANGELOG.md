@@ -24,3 +24,13 @@ This is the earliest useable release.
 - Fixed scrolling issues on mobile
 - Fixed errors when starting from a new state
 - Added error boundary
+
+----------------------------------
+# **VERSION 0.4.0** - Tableau view
+----------------------------------
+
+## CHANGES:
+
+- Added tableau management
+- Added system to migrate data schemas
+- Added images for detrimental rewards

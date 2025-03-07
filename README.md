@@ -9,7 +9,6 @@ Production build: `yarn build`
 
 ## Wishlist
 
-- Define board state (knowledge, ingredients, journal, experiments, figures)
 - Better styling
 - Modal dialog for resource input (instead of inline)
 - Improvement on resource number inputs
