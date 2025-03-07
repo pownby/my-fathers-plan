@@ -44,19 +44,15 @@ export default function MainView() {
 
   return (
     <div>
-      {isDevMode && (
-        <>
-          <div className={styles.tableauHeader}>
-            <span className={styles.tableauTitle}>Tableau:</span> <Icon type={Icon.TYPE.EDIT} onClick={() => navigate('/tableau')} />
-          </div>
-          <div className={styles.tableauContainer}>
-            <AssetList label="Journal" set={tableau.journal} type={AssetType.Knowledge} />
-            <AssetList label="Ingredients" set={tableau.ingredients} type={AssetType.Ingredient} />
-            <AssetList label="Knowledge" set={tableau.knowledge} type={AssetType.Knowledge} />
-            <AssetList label="Experiments" set={tableau.experiments} type={AssetType.Experiment} />
-          </div>
-        </>
-      )}
+      <div className={styles.tableauHeader}>
+        <span className={styles.tableauTitle}>Tableau:</span> <Icon type={Icon.TYPE.EDIT} onClick={() => navigate('/tableau')} />
+      </div>
+      <div className={styles.tableauContainer}>
+        <AssetList label="Journal" set={tableau.journal} type={AssetType.Knowledge} />
+        <AssetList label="Ingredients" set={tableau.ingredients} type={AssetType.Ingredient} />
+        <AssetList label="Knowledge" set={tableau.knowledge} type={AssetType.Knowledge} />
+        <AssetList label="Experiments" set={tableau.experiments} type={AssetType.Experiment} />
+      </div>
       <div className={styles.taskContainer}>
         <div className={styles.taskControls}>
           <button onClick={() => navigate('/tasks')}>Add Task</button>
