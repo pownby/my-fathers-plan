@@ -1,6 +1,6 @@
 {
   "name": "my-fathers-plan",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Helper app for My Father's Work",
   "main": "dist/bundle.js",
   "scripts": {
