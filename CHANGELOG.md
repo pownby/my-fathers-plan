@@ -34,3 +34,12 @@ This is the earliest useable release.
 - Added tableau management
 - Added system to migrate data schemas
 - Added images for detrimental rewards
+
+----------------------------------
+# **VERSION 0.4.1** - Button styles
+----------------------------------
+
+## CHANGES:
+
+- Updated button styles
+- Fixed visual error with Tableau View Experiments in edit mode
