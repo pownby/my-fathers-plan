@@ -6,6 +6,7 @@ import AppContext from '../../context/AppContext';
 import Actions from '../../reducer/actions';
 import EditAssets from '../EditAssets';
 import { AssetType } from '../../constants';
+import Button from '../Button';
 
 const KNOWLEDGE_CONFIG = {
   [AssetType.Knowledge]: { label: '' },
@@ -25,6 +26,7 @@ const EXPERIMENTS_CONFIG = {
   [AssetType.Knowledge]: { hide: true  },
   [AssetType.Ingredient]: { hide: true },
   [AssetType.Detriment]: { hide: true },
+  [AssetType.Experiment]: { label: '' }
 };
 
 export default function TableauView() {
@@ -94,8 +96,8 @@ export default function TableauView() {
         />
         {!editingFields.length && (
           <div className={styles.buttons}>
-            <button onClick={save}>Save</button>
-            <button onClick={() => navigate('/')}>Cancel</button>
+            <Button type={Button.TYPE.PRIMARY} onClick={save}>Save</Button>
+            <Button type={Button.TYPE.NEUTRAL} onClick={() => navigate('/')}>Cancel</Button>
           </div>
         )}
       </div>

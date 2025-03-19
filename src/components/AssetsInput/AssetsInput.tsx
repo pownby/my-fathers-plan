@@ -9,6 +9,7 @@ import Experiment from '../Experiment';
 import AssetsInputRow from './AssetsInputRow';
 import * as styles from './AssetsInput.less';
 import merge from '../../utils/merge';
+import Button from '../Button';
 
 type AssetsInputConfigValue = {
   label?: string
@@ -61,8 +62,8 @@ export default function AssetsInput({ onComplete, onCancel, initialValue, config
   return (
     <div className={styles.container}>
       <div>
-        <button onClick={complete}>Save</button>
-        <button onClick={onCancel}>Cancel</button>
+        <Button type={Button.TYPE.PRIMARY} onClick={complete}>Save</Button>
+        <Button type={Button.TYPE.NEUTRAL} onClick={onCancel}>Cancel</Button>
       </div>
       {!!knowledgeConfig && !knowledgeConfig.hide && (
         <div>
@@ -130,8 +131,8 @@ export default function AssetsInput({ onComplete, onCancel, initialValue, config
         </div>
       )}
       <div>
-        <button onClick={complete}>Save</button>
-        <button onClick={onCancel}>Cancel</button>
+        <Button type={Button.TYPE.PRIMARY} onClick={complete}>Save</Button>
+        <Button type={Button.TYPE.NEUTRAL} onClick={onCancel}>Cancel</Button>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import testData from '../../testData';
 import TaskList from '../TaskList';
 import * as styles from './MainView.less';
 import { AssetType } from '../../constants';
+import Button from '../Button';
 
 const isDevMode = process.env.NODE_ENV === 'development';
 
@@ -55,9 +56,9 @@ export default function MainView() {
       </div>
       <div className={styles.taskContainer}>
         <div className={styles.taskControls}>
-          <button onClick={() => navigate('/tasks')}>Add Task</button>
+          <Button type={Button.TYPE.NEUTRAL} onClick={() => navigate('/tasks')}>Add Task</Button>
           {isDevMode && <button onClick={setTasks}>Generate Tasks</button>}
-          {!!tasks?.length && <button onClick={clearAll}>Clear All</button>}
+          {!!tasks?.length && <Button type={Button.TYPE.DANGER} onClick={clearAll}>Clear All</Button>}
         </div>
         <TaskList tasks={tasks} />
       </div>

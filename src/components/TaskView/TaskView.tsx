@@ -8,6 +8,7 @@ import { TaskLocation, TaskProvider, AssetType } from '../../constants';
 import * as styles from './TaskView.less';
 import Actions from '../../reducer/actions';
 import EditAssets from '../EditAssets';
+import Button from '../Button';
 
 const REQUIREMENTS_CONFIG = {
   [AssetType.Detriment]: { hide: true },
@@ -163,8 +164,8 @@ export default function TaskView() {
       />
       {!editingAssetsFields.length && (
         <div className={styles.buttons}>
-          <button onClick={save}>Save</button>
-          <button onClick={() => navigate('/')}>Cancel</button>
+          <Button type={Button.TYPE.PRIMARY} onClick={save}>Save</Button>
+          <Button type={Button.TYPE.NEUTRAL} onClick={() => navigate('/')}>Cancel</Button>
         </div>
       )}
     </div>
