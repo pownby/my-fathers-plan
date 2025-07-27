@@ -36,8 +36,6 @@ export default function TaskView() {
   const [requirements, setRequirements] = useState(sourceTask?.requirements);
   const [rewards, setRewards] = useState(sourceTask?.rewards);
 
-  const [editingAssetsFields, setEditingAssetsFields] = useState<string[]>([]);
-
   const title = `${!!editTask ? 'Edit' : 'Add'} Task`;
 
   function save() {
@@ -79,16 +77,6 @@ export default function TaskView() {
 
   function onChangeNotes(e: any) {
     setNotes(e.target.value);
-  }
-
-  function getOnEditStateChange(name: string) {
-    return (isEditing: boolean) => {
-      if (isEditing) {
-        setEditingAssetsFields(Array.from(new Set(editingAssetsFields).add(name)));
-      } else {
-        setEditingAssetsFields(editingAssetsFields.filter(f => f !== name));
-      }
-    };
   }
 
   return (
@@ -151,23 +139,19 @@ export default function TaskView() {
       <EditAssets
         label="Requirements"
         assets={requirements}
-        onSave={setRequirements}
-        onEditStateChange={getOnEditStateChange('requirements')}
+        onSubmit={setRequirements}
         config={REQUIREMENTS_CONFIG}
       />
       <EditAssets
         label="Rewards"
         assets={rewards}
-        onSave={setRewards}
-        onEditStateChange={getOnEditStateChange('rewards')}
+        onSubmit={setRewards}
         config={REWARDS_CONFIG}
       />
-      {!editingAssetsFields.length && (
-        <div className={styles.buttons}>
-          <Button type={Button.TYPE.PRIMARY} onClick={save}>Save</Button>
-          <Button type={Button.TYPE.NEUTRAL} onClick={() => navigate('/')}>Cancel</Button>
-        </div>
-      )}
+      <div className={styles.buttons}>
+        <Button type={Button.TYPE.PRIMARY} onClick={save}>Save</Button>
+        <Button type={Button.TYPE.NEUTRAL} onClick={() => navigate('/')}>Cancel</Button>
+      </div>
     </div>
   );
 }

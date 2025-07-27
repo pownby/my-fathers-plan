@@ -1,0 +1,12 @@
+@import "../../colors.less";
+
+.dialog {
+  border-radius: 10px;
+  border-color: @task-border;
+  background-color: @background-body;
+  color: @text-paragraph;
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}

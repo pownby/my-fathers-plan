@@ -1,4 +1,4 @@
-import { TaskProvider, TaskLocation, ExperimentType, KnowledgeType, IngredientType, DetrimentType } from "./constants";
+import { TaskProvider, TaskLocation, ExperimentType, KnowledgeType, IngredientType, DetrimentType, AssetType } from "./constants";
 import Actions from "./reducer/actions";
 
 export type KnowledgeSet = {
@@ -51,14 +51,34 @@ export type TableauState = {
 export type AppData = {
   version: number,
   tableau?: TableauState,
-  tasks?: Task[]
-};
+  tasks?: Task[],
+  assetsModalConfig?: AssetsModalConfig
+}
+
+export type PersistentData = Pick<AppData, "version" | "tableau" | "tasks">;
 
 export type Action =
   { type: Actions.CLEAR_TASKS } |
+  { type: Actions.CLOSE_ASSETS_MODAL } |
   { type: Actions.DELETE_TASK, payload: Task } |
   { type: Actions.MOVE_TASK_DOWN, payload: Task } |
   { type: Actions.MOVE_TASK_UP, payload: Task } |
+  { type: Actions.OPEN_ASSETS_MODAL, payload: AssetsModalConfig } |
   { type: Actions.SAVE_TASK, payload: Task } |
   { type: Actions.SET_STATE, payload: AppData } |
   { type: Actions.SET_TABLEAU, payload: TableauState };
+
+type AssetsModalConfigValue = {
+  label?: string
+  hide?: boolean
+};
+
+export type AssetsModalConfig = {
+  [AssetType.Knowledge]?: AssetsModalConfigValue
+  [AssetType.Ingredient]?: AssetsModalConfigValue
+  [AssetType.Detriment]?: AssetsModalConfigValue
+  [AssetType.Experiment]?: AssetsModalConfigValue,
+  label?: string,
+  assets?: AssetSet,
+  onSubmit: (assets?: AssetSet) => any
+};

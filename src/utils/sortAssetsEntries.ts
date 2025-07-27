@@ -14,7 +14,8 @@ const ORDER_MAP: Record<string, number> = {
   [DetrimentType.Mob]: 10,
   [ExperimentType.A]: 11,
   [ExperimentType.B]: 12,
-  [ExperimentType.C]: 13
+  [ExperimentType.C]: 13,
+  [ExperimentType.D]: 14
 };
 
 export default function sortAssetsEntries([a_key]: [string, number], [b_key]: [string, number]): number {

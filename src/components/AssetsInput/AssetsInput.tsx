@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 
 import { KnowledgeType, IngredientType, DetrimentType, AssetType, ExperimentType } from '../../constants';
-import { AssetSet } from '../../types';
+import { AssetSet, AssetsModalConfig } from '../../types';
 import Knowledge from '../Knowledge';
 import Ingredient from '../Ingredient';
 import Detriment from '../Detriment';
@@ -10,25 +10,13 @@ import AssetsInputRow from './AssetsInputRow';
 import * as styles from './AssetsInput.less';
 import merge from '../../utils/merge';
 import Button from '../Button';
-
-type AssetsInputConfigValue = {
-  label?: string
-  hide?: boolean
-};
-
-export type AssetsInputConfig = {
-  [AssetType.Knowledge]?: AssetsInputConfigValue
-  [AssetType.Ingredient]?: AssetsInputConfigValue
-  [AssetType.Detriment]?: AssetsInputConfigValue
-  [AssetType.Experiment]?: AssetsInputConfigValue
-};
+import AppContext from '../../context/AppContext';
 
 type AssetsInputProps = {
-  onComplete?: (assets: AssetSet) => any,
-  onCancel?: () => any,
-  initialValue?: AssetSet,
-  config?: AssetsInputConfig
+  onCancel: () => any,
 };
+
+type AssetsInputConfig = Omit<AssetsModalConfig, "onSubmit" | "assets">;
 
 const DEFAULT_CONFIG: AssetsInputConfig = {
   [AssetType.Knowledge]: { label: 'Knowledge' },
@@ -37,8 +25,10 @@ const DEFAULT_CONFIG: AssetsInputConfig = {
   [AssetType.Experiment]: { label: 'Experiments' }
 };
 
-export default function AssetsInput({ onComplete, onCancel, initialValue, config = {} }: AssetsInputProps) {
-  const [assets, setAssets] = useState<AssetSet>(initialValue || {});
+export default function AssetsInput({ onCancel }: AssetsInputProps) {
+  const { appState: { assetsModalConfig: config } } = useContext(AppContext);
+  const [assets, setAssets] = useState<AssetSet>(config.assets || {});
+  const { onSubmit, label } = config;
 
   const resolvedConfig = useMemo(() => merge(DEFAULT_CONFIG, config), [config]);
 
@@ -49,7 +39,8 @@ export default function AssetsInput({ onComplete, onCancel, initialValue, config
   function complete() {
     // filter out 0s to be consistent and reduce data storage
     const entries = Object.entries(assets || {}).filter(([key, value]) => !!value);
-    onComplete?.(Object.fromEntries(entries));
+    onSubmit(Object.fromEntries(entries));
+    onCancel();
   }
 
   const {
@@ -61,10 +52,7 @@ export default function AssetsInput({ onComplete, onCancel, initialValue, config
 
   return (
     <div className={styles.container}>
-      <div>
-        <Button type={Button.TYPE.PRIMARY} onClick={complete}>Save</Button>
-        <Button type={Button.TYPE.NEUTRAL} onClick={onCancel}>Cancel</Button>
-      </div>
+      {!!label && (<div className={styles.heading}>{label}</div>)}
       {!!knowledgeConfig && !knowledgeConfig.hide && (
         <div>
           {!!knowledgeConfig.label && (<div>{knowledgeConfig.label}:</div>)}
@@ -131,7 +119,7 @@ export default function AssetsInput({ onComplete, onCancel, initialValue, config
         </div>
       )}
       <div>
-        <Button type={Button.TYPE.PRIMARY} onClick={complete}>Save</Button>
+        <Button type={Button.TYPE.PRIMARY} onClick={complete}>Submit</Button>
         <Button type={Button.TYPE.NEUTRAL} onClick={onCancel}>Cancel</Button>
       </div>
     </div>

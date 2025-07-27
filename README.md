@@ -10,7 +10,6 @@ Production build: `yarn build`
 ## Wishlist
 
 - Better styling
-- Modal dialog for resource input (instead of inline)
 - Improvement on resource number inputs
 - Warn if tasks cannot be completed (e.g. not even servants, resources, etc.)
 - Light mode

@@ -11,6 +11,12 @@ export default function reducer(state: AppData, action: Action): AppData {
         tasks: []
       };
     }
+    case Actions.CLOSE_ASSETS_MODAL: {
+      return {
+        ...state,
+        assetsModalConfig: null
+      };
+    }
     case Actions.DELETE_TASK: {
       const task = action.payload;
       const tasks = state.tasks || [];
@@ -55,6 +61,13 @@ export default function reducer(state: AppData, action: Action): AppData {
         };
       }
       return state;
+    }
+    case Actions.OPEN_ASSETS_MODAL: {
+      const newConfig = action.payload;
+      return {
+        ...state,
+        assetsModalConfig: newConfig
+      };
     }
     case Actions.SAVE_TASK: {
       const newTask = action.payload;

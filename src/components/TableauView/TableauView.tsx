@@ -38,8 +38,6 @@ export default function TableauView() {
   const [knowledge, setKnowledge] = useState(appState?.knowledge);
   const [experiments, setExperiments] = useState(appState?.experiments);
   
-  const [editingFields, setEditingFields] = useState<string[]>([]);
-
   function save() {
     dispatch({
       type: Actions.SET_TABLEAU,
@@ -52,16 +50,6 @@ export default function TableauView() {
     });
     navigate('/');
   }
-
-  function getOnEditStateChange(name: string) {
-    return (isEditing: boolean) => {
-      if (isEditing) {
-        setEditingFields(Array.from(new Set(editingFields).add(name)));
-      } else {
-        setEditingFields(editingFields.filter(f => f !== name));
-      }
-    };
-  }
   
   return (
       <div className={styles.container}>
@@ -69,37 +57,31 @@ export default function TableauView() {
         <EditAssets
           label="Journal"
           assets={journal}
-          onSave={setJournal}
-          onEditStateChange={getOnEditStateChange('journal')}
+          onSubmit={setJournal}
           config={KNOWLEDGE_CONFIG}
         />
         <EditAssets
           label="Ingredients"
           assets={ingredients}
-          onSave={setIngredients}
-          onEditStateChange={getOnEditStateChange('ingredients')}
+          onSubmit={setIngredients}
           config={INGREDIENTS_CONFIG}
         />
         <EditAssets
           label="Knowledge"
           assets={knowledge}
-          onSave={setKnowledge}
-          onEditStateChange={getOnEditStateChange('knowledge')}
+          onSubmit={setKnowledge}
           config={KNOWLEDGE_CONFIG}
         />
         <EditAssets
           label="Experiments"
           assets={experiments}
-          onSave={setExperiments}
-          onEditStateChange={getOnEditStateChange('experiments')}
+          onSubmit={setExperiments}
           config={EXPERIMENTS_CONFIG}
         />
-        {!editingFields.length && (
-          <div className={styles.buttons}>
-            <Button type={Button.TYPE.PRIMARY} onClick={save}>Save</Button>
-            <Button type={Button.TYPE.NEUTRAL} onClick={() => navigate('/')}>Cancel</Button>
-          </div>
-        )}
+        <div className={styles.buttons}>
+          <Button type={Button.TYPE.PRIMARY} onClick={save}>Save</Button>
+          <Button type={Button.TYPE.NEUTRAL} onClick={() => navigate('/')}>Cancel</Button>
+        </div>
       </div>
     );
 }

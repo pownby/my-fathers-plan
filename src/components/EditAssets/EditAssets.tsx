@@ -1,43 +1,38 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
 import * as styles from './EditAssets.less';
-import { AssetSet } from '../../types';
+import { AssetSet, AssetsModalConfig } from '../../types';
 import Icon from '../Icon';
-import AssetsInput, { AssetsInputConfig } from '../AssetsInput';
 import InlineAssetList from '../InlineAssetList';
+import AppContext from '../../context/AppContext';
+import Actions from '../../reducer/actions';
+
+type AssetsInputConfig = Omit<AssetsModalConfig, "onSubmit" | "assets">;
 
 type EditAssetsProps = {
   label: string,
   assets: AssetSet,
-  onSave: (newSet: AssetSet) => void,
-  onEditStateChange?: (editing: boolean) => void,
-  config?: AssetsInputConfig
+  config?: AssetsInputConfig,
+  onSubmit: (assets?: AssetSet) => any
 };
 
-export default function EditAssets({ label, assets, onSave, onEditStateChange, config }: EditAssetsProps) {
-  const [isEditing, setIsEditing] = useState(false);
+export default function EditAssets({ label, assets, onSubmit, config }: EditAssetsProps) {
+  const { dispatch } = useContext(AppContext);
   
-  function toggleIsEditing() {
-    const newIsEditing = !isEditing;
-    setIsEditing(newIsEditing);
-    onEditStateChange?.(newIsEditing);
-  }
-
-  function onCompleteInput(newSet: AssetSet) {
-    onSave(newSet);
-    setIsEditing(false);
-    onEditStateChange?.(false);
+  function openAssetsModal() {
+    dispatch({ type: Actions.OPEN_ASSETS_MODAL, payload: {
+      ...config,
+      label,
+      assets,
+      onSubmit
+    }});
   }
 
   return (
     <div>
-      {label}: {!isEditing && <Icon type={Icon.TYPE.EDIT} onClick={toggleIsEditing} />}
+      {label}: <Icon type={Icon.TYPE.EDIT} onClick={openAssetsModal} />
       <div className={styles.inputArea}>
-        {!!isEditing ? (
-          <AssetsInput onComplete={onCompleteInput} onCancel={toggleIsEditing} initialValue={assets} config={config} />
-        ) : (
-          <InlineAssetList assets={assets} />
-        )}
+        <InlineAssetList assets={assets} />
       </div>
     </div>
   );
