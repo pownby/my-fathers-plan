@@ -43,3 +43,12 @@ This is the earliest useable release.
 
 - Updated button styles
 - Fixed visual error with Tableau View Experiments in edit mode
+
+----------------------------------
+# **VERSION 0.5.0** - Assets dialog
+----------------------------------
+
+## CHANGES:
+
+- Added dialog for assets management
+- Removed inline assets editors
